@@ -16,8 +16,14 @@
 #
 
 library(shiny)
+library(shinyjs)
+
+jscode <- "shinyjs.closewindow = function() { window.open('','_self').close(); }"
 
 shinyUI(fluidPage(
+  useShinyjs(),
+  extendShinyjs(text = jscode),
+
   titlePanel("Analyze BehaviorSpace Experiments"),
   sidebarLayout(
     sidebarPanel(
@@ -38,7 +44,8 @@ shinyUI(fluidPage(
       tags$hr(),
       fluidRow(
         downloadButton("save_plot", "Save Plot"),
-        downloadButton("save_table", "Save Table")
+        downloadButton("save_table", "Save Table"),
+        actionButton("quit_button", "Quit")
       ),
       tags$hr(),
       h3("Rename variables"),

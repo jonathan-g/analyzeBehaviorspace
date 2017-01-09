@@ -29,7 +29,7 @@
 #' launch_abs()
 #' }
 #'
-launch_abs <- function(rstudio = getOption("shinystan.rstudio"), ...) {
+launch_abs <- function(rstudio = getOption("analyze_behaviorspace.rstudio"), ...) {
   message("\nLaunching AnalyzeBehaviorspace interface.")
   invisible(launch(rstudio, ...))
 }
@@ -43,4 +43,5 @@ launch <- function(rstudio = FALSE, ...) {
 
   shiny::runApp(system.file("AnalyzeBehaviorspace", package = "analyzeBehaviorspace"),
                 launch.browser = launch.browser, ...)
+  invisible()
 }

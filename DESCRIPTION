@@ -10,7 +10,9 @@ Depends:
     shiny
 Imports:
     tidyverse,
-    stringr
+    stringr,
+    shinyjs,
+    V8
 Description: Reads in table-style output from NetLogo behaviorspace
     experiments, allows the user to do some basic organizing and interactive
     plotting, and to export charts and summary tables.
