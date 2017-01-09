@@ -7,7 +7,7 @@ This is a shiny app to analyze table output from NetLogo BehaviorSpace experimen
 
 NetLogo outputs `.csv` files from BehaviorSpace runs that are very annoying to analyze in Excel because of the limited functionality of Excel pivot tables. This application reads in a `.csv` file from a BehaviorSpace run (use the *table* option for output, not *spreadsheet*) and allows the user to summarize the output by up to two variables, and generate plots and summary tables, both of which can be exported.
 
-To use the app, you need R version 3.3.2 or later.
+To use the app, you need R version 3.3 or later.
 
 To install `analyzeBehaviorspace`, start R and type the following lines:
 
