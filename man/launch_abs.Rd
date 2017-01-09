@@ -4,7 +4,7 @@
 \alias{launch_abs}
 \title{Launch the AnalyzeBehaviorspace app}
 \usage{
-launch_abs(rstudio = getOption("shinystan.rstudio"), ...)
+launch_abs(rstudio = getOption("analyze_behaviorspace.rstudio"), ...)
 }
 \arguments{
 \item{rstudio}{Only relevant for RStudio users. The default (\code{FALSE}) is

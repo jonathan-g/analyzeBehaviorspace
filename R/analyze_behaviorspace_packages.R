@@ -54,7 +54,6 @@
 #'
 #'
 #' @import shiny
-#' @import shinyjs
 #' @import tidyverse
 #' @import stringr
 #'
