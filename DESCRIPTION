@@ -6,7 +6,7 @@ Title: Processes NetLogo Behaviorspace output
 Authors@R: c(person("Jonathan", "Gilligan", role = c("aut", "cre"),
                     email = "jonathan.gilligan@vanderbilt.edu"))
 Depends:
-    R (>= 3.3.2),
+    R (>= 3.3),
     shiny
 Imports:
     tidyverse,

@@ -1,3 +1,4 @@
 language: r
 sudo: required
 cache: packages
+after_failure: "cat /home/travis/build/jonathan-g/analyzeBehaviorspace/analyzeBehaviorspace.Rcheck/00install.out"
