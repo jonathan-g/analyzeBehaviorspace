@@ -16,7 +16,6 @@
 #
 
 library(shiny)
-library(shinyjs)
 library(tidyverse)
 library(stringr)
 
@@ -454,7 +453,6 @@ shinyServer(function(input, output, session) {
 
   observeEvent(input$quit_button, {
     message("Quit pressed")
-    js$closewindow()
     stopApp()
   })
 

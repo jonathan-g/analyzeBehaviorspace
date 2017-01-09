@@ -16,14 +16,8 @@
 #
 
 library(shiny)
-library(shinyjs)
-
-jscode <- "shinyjs.closewindow = function() { window.open('','_self').close(); }"
 
 shinyUI(fluidPage(
-  useShinyjs(),
-  extendShinyjs(text = jscode),
-
   titlePanel("Analyze BehaviorSpace Experiments"),
   sidebarLayout(
     sidebarPanel(
