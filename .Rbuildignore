@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
+^\.gitlab-ci\.yml$
 ^analyzeBehaviorspace\.Rproj$
 ^LICENSE\.R?md$
 ^README\.R?md$
