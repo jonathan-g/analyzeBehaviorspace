@@ -3,4 +3,5 @@
 ^\.travis\.yml$
 ^analyzeBehaviorspace\.Rproj$
 ^LICENSE\.R?md$
-^README\.md$
+^README\.R?md$
+^README-.*\.(png|jpg|jpeg|pdf)$
