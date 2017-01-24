@@ -30,6 +30,18 @@ count_unique <- function(col_names, df) {
   unlist()
 }
 
+extract_last_tick <- function(df, vars) {
+  # max_tick <- max(exp_data$tick, na.rm=T)
+  # message("Filtering to last tick: ", max_tick)
+  #exp_data <- exp_data %>% filter(tick == max_tick)
+  lt_vars <- c('run', vars) %>% discard(~.x == 'tick')
+  message("lt_vars = ", paste(lt_vars, collapse = ', '))
+  df %>% group_by_(.dots = lt_vars) %>%
+    top_n(1, tick) %>%
+    ungroup() %>%
+    invisible()
+}
+
 shinyServer(function(input, output, session) {
   experiment <- reactiveValues(
     data = NULL,
@@ -124,11 +136,15 @@ shinyServer(function(input, output, session) {
     inFile <- input$file1
     if (is.null(inFile)) return(NULL)
 
-    text <- readLines(inFile$datapath, n = 100)
-    skip_lines <- which(str_detect(text, '^"\\[run number\\]"'))
+    message("Reading input")
+    text <- read_file(inFile$datapath)
+    text_lines <- str_split(text, '\n') %>% simplify()
+    message("File length = ", str_length(text), ": Split into ", length(text_lines), " lines.")
+    skip_lines <- which(str_detect(text_lines, '^"\\[run number\\]"'))
     if (length(skip_lines) > 0) skip_lines = skip_lines[1] - 1
 
-    d <- read_csv(inFile$datapath, skip = skip_lines, n_max = 100)
+
+    d <- read_csv(text, skip = skip_lines, n_max = 100)
 
       nm <- names(d) %>% str_replace_all('[^a-zA-Z0-9]+','.') %>%
       str_replace_all(c('^\\.+' = '', '\\.+$' = '')) %>%
@@ -137,8 +153,9 @@ shinyServer(function(input, output, session) {
     spec <- rep_len('?', length(nm))
     spec <- paste(spec, collapse = '')
 
-    d <- read_csv(inFile$datapath, skip = skip_lines + 1,
-                  col_names = nm, col_types = spec)
+    d <- read_csv(text, skip = skip_lines + 1,
+                  col_names = nm, col_types = spec,
+                  guess_max = round(length(text_lines) / 2))
     if (any(duplicated(names(d)))) {
       d <- d[,-which(duplicated(names(d)))]
     }
@@ -266,9 +283,7 @@ shinyServer(function(input, output, session) {
     # message("Group vars = ", paste0(gv, collapse = ', '))
 
     if (last_tick || (! 'tick' %in% c(x_var, y_var))) {
-      max_tick <- max(exp_data$tick, na.rm=T)
-      # message("Filtering to last tick: ", max_tick)
-      exp_data <- exp_data %>% filter(tick == max_tick)
+      exp_data <- exp_data %>% extract_last_tick(experiment$ind_vars)
     }
 
     # message(paste0(names(gv), collapse = ", "))
@@ -378,8 +393,7 @@ shinyServer(function(input, output, session) {
     if((! input$summary_tab) || is.null(expt_data)) {
       expt_data <- experiment$data
       if (input$last_tick) {
-        max_tick_ <- max(expt_data$tick)
-        expt_data <- expt_data %>% filter(tick == max_tick_)
+        expt_data <- expt_data %>% extract_last_tick(experiment$ind_vars)
       }
     }
     dots <- dots %>% keep(~.x %in% names(expt_data))
