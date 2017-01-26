@@ -112,13 +112,15 @@ shinyServer(function(input, output, session) {
   classify_vars <- function(df) {
     message("classify_vars")
     n <- colnames(df)
+    nn <- df %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
     run <- which(n == 'run')
     tick <- which(n == 'tick')
     ind_vars <- character(0)
     if (tick > run + 1) {
       ind_vars <- n[(run + 1):(tick - 1)]
     }
-    dep_vars <-  tail(n, -tick)
+    tick2 <- which(nn == 'tick')
+    dep_vars <-  tail(nn, -tick)
     list(ind_vars = ind_vars, dep_vars = dep_vars)
   }
 
@@ -162,10 +164,23 @@ shinyServer(function(input, output, session) {
 
     message("Names = (", paste0(names(d), collapse = ", "), ")")
     num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
-    d <- d %>% select_(.dots = num_vars) %>%
-      arrange(run, tick)
+    factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
+    message("numeric columns = ", paste(num_vars, collapse = ", "))
+    message("factor columns = ", paste(factor_vars, collapse = ", "))
+    #d <- d %>% select_(.dots = num_vars) %>%
+    f <- function(x) { ! is.numeric(x)}
+    if (length(factor_vars) > 0) {
+    d <- d %>% mutate_if(f, funs(factor(.)))
+    }
+    d <- d %>% arrange(run, tick)
     names(d) <- str_replace_all(names(d), '\\.+','.')
+    num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
+    factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
+    message("numeric columns = ", paste(num_vars, collapse = ", "))
+    message("factor columns = ", paste(factor_vars, collapse = ", "))
     vars <- classify_vars(d)
+    message("ind_vars = ", paste(vars$ind_vars, collapse = ", "))
+    message("dep_vars = ", paste(vars$dep_vars, collapse = ", "))
     message("Done loading data: ", nrow(d), " rows.")
     invisible(list(data = d, ind_vars = vars$ind_vars, dep_vars = vars$dep_vars,
                    mapping = data.frame(col = names(d), name = names(d),
