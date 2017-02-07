@@ -1,6 +1,6 @@
 Package: analyzeBehaviorspace
-Version: 0.1.0
-Date: 2017-01-08
+Version: 0.1.1
+Date: 2017-01-26
 Type: Package
 Title: Processes NetLogo Behaviorspace output
 Authors@R: c(person("Jonathan", "Gilligan", role = c("aut", "cre"),
