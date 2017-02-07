@@ -342,11 +342,14 @@ shinyServer(function(input, output, session) {
     p_map_list = list(x = x_var, y = y_var)
     plot_legend <- NULL
     if (g_var %in% gv$col) {
-      p_map_list <- c(p_map_list,  colour = paste0("ordered(", g_var,")"))
+      p_map_list <- c(p_map_list,
+                      colour = paste0("ordered(", g_var,")"),
+                      fill = paste0("ordered(", g_var,")")
+                      )
       plot_legend <- tx_col(g_var, mapping)
     }
     sd_name <- paste0(y_var, "_sd")
-    if (err_bars && sd_name %in% names(plt_data)) {
+    if (err_bars != 'none' && sd_name %in% names(plt_data)) {
       p_map_list <- c(p_map_list,
                       ymin = paste0(y_var, " - ", sd_name),
                       ymax = paste0(y_var, " + ", sd_name)
@@ -386,11 +389,18 @@ shinyServer(function(input, output, session) {
     # message("Plotting")
     p <- ggplot(df, pm_mapping)
     if (lines) p <- p + geom_line()
-    if (err_bars && sd_name %in% names(df)) p <- p + geom_errorbar()
+    if (sd_name %in% names(df)) {
+      if (err_bars == 'error bars') {
+        p <- p + geom_errorbar()
+      } else if (err_bars == 'bands') {
+        p <- p + geom_ribbon(alpha = 0.3)
+      }
+    }
     if (points) p <- p + geom_point()
     if (! is.null(pm_legend)) {
       # message("adding legend ", pm_legend)
       p <- p + scale_colour_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
+      p <- p + scale_fill_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
     }
     # message("Labs = ", pm_labs)
     p <- p + pm_labs

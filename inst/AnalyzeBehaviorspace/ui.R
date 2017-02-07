@@ -31,7 +31,7 @@ shinyUI(fluidPage(
       selectInput('group_var', "Group by", choices = c("")),
       checkboxInput('points', 'points', value = TRUE),
       checkboxInput('lines', 'lines', value = FALSE),
-      checkboxInput('error_bars', 'error bars', value = FALSE),
+      radioButtons('error_bars', 'Std. Dev.', choices = c('none', 'error bars', 'bands'), selected = 'none', inline = TRUE),
       checkboxInput('last_tick', 'Only show last tick', value = FALSE),
       tags$hr(),
       checkboxInput('summary_tab','Summary table?', FALSE),
