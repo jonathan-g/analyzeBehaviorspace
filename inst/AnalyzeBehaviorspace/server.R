@@ -460,7 +460,8 @@ shinyServer(function(input, output, session) {
       suffix2 <- ''
       if (input$points) suffix2 <- paste0(suffix2, 'p')
       if (input$lines) suffix2 <- paste0(suffix2, 'l')
-      if (input$error_bars) suffix2 <- paste0(suffix2, 'e')
+      if (input$error_bars == 'error bars') suffix2 <- paste0(suffix2, 'e')
+      if (input$error_bars == 'bands') suffic2 <- paste0(suffix2, 'b')
       if (input$last_tick) suffix2 <- paste0(suffix2, 't')
       if (suffix2 != '') suffix <- paste0(suffix, '_', suffix2)
       fname <- paste0(fname, suffix, '.png')
