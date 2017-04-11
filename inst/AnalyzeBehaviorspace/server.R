@@ -294,35 +294,38 @@ shinyServer(function(input, output, session) {
 
     pv <- expt_plot_vars()
     gv <- expt_group_vars()
-    # message("Plot vars = ", paste0(pv, collapse = ', '))
-    # message("Group vars = ", paste0(gv, collapse = ', '))
+    message("Plot vars = ", paste0(pv, collapse = ', '))
+    message("Group vars = ", paste0(gv, collapse = ', '))
 
     if (last_tick || (! 'tick' %in% c(x_var, y_var))) {
+      message("Processing for last tick")
       exp_data <- exp_data %>% extract_last_tick(experiment$ind_vars)
     }
 
-    # message(paste0(names(gv), collapse = ", "))
-    # message("g_var = ", g_var, ", gv = (", paste0(gv, collapse = ", "), "), grouping = ", (g_var %in% gv))
+    message(paste0(names(gv), collapse = ", "))
+    message("g_var = ", g_var, ", gv = (", paste0(gv, collapse = ", "), "), grouping = ", (g_var %in% gv))
 
     if (length(pv) >= 1) {
       if (g_var %in% gv$col) {
-        grouping <- unique(c('tick', x_var, g_var))
+        vv <- c(x_var, g_var)
       } else {
-        grouping <- unique(c('tick', x_var))
+        vv <- c(x_var)
       }
+      if (!last_tick) vv <- c('tick', vv)
+      grouping <- unique(vv)
       grouping <- grouping %>% discard(~.x == y_var)
 
-      # message("Summarizing ", tx_col(y_var, mapping), " by ",
-      #         paste(map_chr(grouping, tx_col, mapping), collapse=", "))
+      message("Summarizing ", tx_col(y_var, mapping), " by ",
+             paste(map_chr(grouping, tx_col, mapping), collapse=", "))
       dots <- setNames(paste0(c("mean","sd"), "(", y_var, ")"),
                        c(paste0(y_var, "_mean"), paste0(y_var, "_sd")))
-      # message("dots = ", paste0(dots, collapse = ", "))
-      # message("Grouping")
+      message("dots = ", paste0(dots, collapse = ", "))
+      message("Grouping")
       exp_data <- exp_data %>% group_by_(.dots = grouping) %>%
         summarize_(.dots = dots) %>%
         rename_(.dots = setNames(list(paste0(y_var, "_mean")), y_var)) %>%
         ungroup()
-      # message("Ungrouped: names = ", paste0(names(exp_data), collapse = ', '))
+      message("Ungrouped: names = ", paste0(names(exp_data), collapse = ', '))
     }
     exp_data
   })
