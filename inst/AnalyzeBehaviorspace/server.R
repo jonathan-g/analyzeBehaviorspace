@@ -139,16 +139,16 @@ shinyServer(function(input, output, session) {
     if (is.null(inFile)) return(NULL)
 
     message("Reading input")
-    text <- read_file(inFile$datapath)
-    text_lines <- str_split(text, '\n') %>% simplify()
+    text <- read_file(inFile$datapath) %>% str_replace_all("\r\n", "\n") %>% str_replace_all("\r", "\n")
+    text_lines <- text %>%  str_split('\n') %>% simplify()
     message("File length = ", str_length(text), ": Split into ", length(text_lines), " lines.")
-    skip_lines <- which(str_detect(text_lines, '^"\\[run number\\]"'))
+    skip_lines <- which(str_detect(text_lines, '^"?\\[run number\\]"?'))
     if (length(skip_lines) > 0) skip_lines = skip_lines[1] - 1
 
 
     d <- read_csv(text, skip = skip_lines, n_max = 100)
 
-      nm <- names(d) %>% str_replace_all('[^a-zA-Z0-9]+','.') %>%
+    nm <- names(d) %>% str_replace_all('[^a-zA-Z0-9]+','.') %>%
       str_replace_all(c('^\\.+' = '', '\\.+$' = '')) %>%
       str_replace_all(c('^run\\.number$' = 'run', '^step' = 'tick'))
     nc <- length(nm)
