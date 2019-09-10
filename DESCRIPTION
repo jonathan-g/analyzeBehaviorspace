@@ -4,8 +4,8 @@ Date: 2019-09-10
 Type: Package
 Title: Processes NetLogo Behaviorspace Output
 Authors@R: c(person("Jonathan", "Gilligan", role = c("aut", "cre"),
-                    email = "jonathan.gilligan@vanderbilt.edu"),
-                    comment = c(ORCID="0000-0003-1375-6686"))
+                    email = "jonathan.gilligan@vanderbilt.edu",
+                    comment = c(ORCID="0000-0003-1375-6686")))
 Depends:
     R (>= 3.5),
     shiny (>= 1.3)

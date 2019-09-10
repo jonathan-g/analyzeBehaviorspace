@@ -54,7 +54,12 @@
 #'
 #'
 #' @import shiny
-#' @import tidyverse
+#' @import dplyr
+#' @import tidyr
+#' @import purrr
+#' @import readr
 #' @import stringr
+#' @import ggplot2
+#' @import janitor
 #'
 NULL
