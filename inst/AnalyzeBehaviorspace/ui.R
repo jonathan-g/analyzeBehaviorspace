@@ -16,8 +16,11 @@
 #
 
 library(shiny)
+library(shinyalert)
+library(plotly)
 
 shinyUI(fluidPage(
+  useShinyalert(),
   titlePanel("Analyze BehaviorSpace Experiments"),
   sidebarLayout(
     sidebarPanel(
@@ -48,7 +51,7 @@ shinyUI(fluidPage(
       actionButton("rename", "Rename")
     ),
     mainPanel(
-      plotOutput('plot'),
+      plotlyOutput('plot'),
       DT::dataTableOutput('table')
     )
   )

@@ -16,10 +16,17 @@
 #
 
 library(shiny)
-library(tidyverse)
-library(stringr)
+library(dplyr)
+library(readr)
+library(purrr)
+library(tidyr)
+library(ggplot2)
+library(shinyalert)
+library(plotly)
 
 options(shiny.maxRequestSize = 300 * 1024^2)
+
+source("abs_load_data.R")
 
 #instaoptions(warn = 2)
 
@@ -43,6 +50,8 @@ extract_last_tick <- function(df, vars) {
 }
 
 shinyServer(function(input, output, session) {
+  cdata <- session$clientData
+
   experiment <- reactiveValues(
     data = NULL,
     ind_vars = NULL,
@@ -109,21 +118,6 @@ shinyServer(function(input, output, session) {
     vars
   })
 
-  classify_vars <- function(df) {
-    message("classify_vars")
-    n <- colnames(df)
-    nn <- df %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
-    run <- which(n == 'run')
-    tick <- which(n == 'tick')
-    ind_vars <- character(0)
-    if (tick > run + 1) {
-      ind_vars <- n[(run + 1):(tick - 1)]
-    }
-    tick2 <- which(nn == 'tick')
-    dep_vars <-  tail(nn, -tick)
-    list(ind_vars = ind_vars, dep_vars = dep_vars)
-  }
-
   bs_data <- reactive({
     # input$file1 will be NULL initially. After the user selects
     # and uploads a file, it will be a data frame with 'name',
@@ -140,68 +134,41 @@ shinyServer(function(input, output, session) {
 
     message("Reading input")
     text <- read_file(inFile$datapath) %>% str_replace_all("\r\n", "\n") %>% str_replace_all("\r", "\n")
-    text_lines <- text %>%  str_split('\n') %>% simplify()
-    message("File length = ", str_length(text), ": Split into ", length(text_lines), " lines.")
-    skip_lines <- which(str_detect(text_lines, '^"?\\[run number\\]"?'))
-    if (length(skip_lines) > 0) skip_lines = skip_lines[1] - 1
-
-
-    d <- read_csv(text, skip = skip_lines, n_max = 100)
-
-    nm <- names(d) %>% str_replace_all('[^a-zA-Z0-9]+','.') %>%
-      str_replace_all(c('^\\.+' = '', '\\.+$' = '')) %>%
-      str_replace_all(c('^run\\.number$' = 'run', '^step' = 'tick'))
-    nc <- length(nm)
-    spec <- rep_len('?', length(nm))
-    spec <- paste(spec, collapse = '')
-
-    d <- read_csv(text, skip = skip_lines + 1,
-                  col_names = nm, col_types = spec,
-                  guess_max = round(length(text_lines) / 2))
-    if (any(duplicated(names(d)))) {
-      d <- d[,-which(duplicated(names(d)))]
+    dat <- load_bs_table(text)
+    message("returned from load_bs_table()")
+    message("    success = ", dat$success)
+    if (is.null(dat$data))
+      message("    data = NULL")
+    else
+      message("    data dimensions (", str_c(dim(dat$data), collapse = ", "), ")")
+    if (! dat$success) {
+      detail <- character(0)
+      text <- "You must provide a .csv file containing the output of a NetLogo BehaviorSpace experiment in table format."
+      if (dat$cause == "not_bs") {
+        text <- "The file does not seem to be a BehaviorSpace experiment."
+      } else if (dat$cause == "spreadsheet") {
+        text <- "The file seems to be a BehaviorSpace experiment in spreadsheet format.\nYou need to choose \"table\" format for the BehaviorSpace output."
+      }
+      shinyalert(title="Bad file format", text = text, type="error")
+      return(NULL)
     }
-
-    message("Names = (", paste0(names(d), collapse = ", "), ")")
-    num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
-    factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
-    message("numeric columns = ", paste(num_vars, collapse = ", "))
-    message("factor columns = ", paste(factor_vars, collapse = ", "))
-    #d <- d %>% select_(.dots = num_vars) %>%
-    f <- function(x) { ! is.numeric(x)}
-    if (length(factor_vars) > 0) {
-    d <- d %>% mutate_if(f, funs(factor(.)))
-    }
-    d <- d %>% arrange(run, tick)
-    names(d) <- str_replace_all(names(d), '\\.+','.')
-    num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
-    factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
-    message("numeric columns = ", paste(num_vars, collapse = ", "))
-    message("factor columns = ", paste(factor_vars, collapse = ", "))
-    vars <- classify_vars(d)
-    message("ind_vars = ", paste(vars$ind_vars, collapse = ", "))
-    message("dep_vars = ", paste(vars$dep_vars, collapse = ", "))
-    message("Done loading data: ", nrow(d), " rows.")
-    invisible(list(data = d, ind_vars = vars$ind_vars, dep_vars = vars$dep_vars,
-                   mapping = data.frame(col = names(d), name = names(d),
-                                        stringsAsFactors = F)))
+    invisible(list_modify(dat, success = zap(), cause = zap()))
   })
 
-  observeEvent(bs_data(),
-               {
-                 message("New Behaviorspace Data")
-                 expt <- bs_data()
-                 experiment$data <- expt$data
-                 experiment$ind_vars <- expt$ind_vars
-                 experiment$dep_vars <- expt$dep_vars
-                 experiment$mapping <- expt$mapping
-                 message("Experiment initialized")
+  observeEvent(bs_data(), {
+    message("New Behaviorspace Data")
+    expt <- bs_data()
+    experiment$data <- expt$data
+    experiment$ind_vars <- expt$ind_vars
+    experiment$dep_vars <- expt$dep_vars
+    experiment$mapping <- expt$mapping
+    message("Experiment initialized")
 
-                 updateSelectInput(session, "ren_from", "", selected = "")
-                 updateSelectInput(session, "x_var", choices = "", selected = "")
-                 updateSelectInput(session, "y_var", choices = "", selected = "")
-                 updateSelectInput(session, "group_var", choices = "", selected = "")
-               })
+    updateSelectInput(session, "ren_from", "", selected = "")
+    updateSelectInput(session, "x_var", choices = "", selected = "")
+    updateSelectInput(session, "y_var", choices = "", selected = "")
+    updateSelectInput(session, "group_var", choices = "", selected = "")
+  })
 
   observeEvent(expt_vars(), {
     message("expt_vars changed")
@@ -430,8 +397,11 @@ shinyServer(function(input, output, session) {
     return(expt_data)
   })
 
-  output$plot <- renderPlot({
-    makeplot()
+  output$plot <- renderPlotly({
+    p <- makeplot()
+    if (is.null(p))
+      return(NULL)
+    ggplotly(p, width = cdata$output_plot_width, height = cdata$output_plot_height)
   })
 
   output$table <- DT::renderDataTable(
