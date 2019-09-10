@@ -2,7 +2,7 @@ app <- ShinyDriver$new("../")
 app$snapshotInit("test_abs")
 
 app$snapshot()
-app$uploadFile(file1 = "../../test_data/butterfly_class_06a vary-q-all-steps-table.csv") # <-- This should be the path to the file, relative to the app's tests/ directory
+app$uploadFile(file1 = "../../test_data/butterfly_class_06a_vary-q-all-steps-table.csv") # <-- This should be the path to the file, relative to the app's tests/ directory
 # Input 'table_rows_current' was set, but doesn't have an input binding.
 # Input 'table_rows_all' was set, but doesn't have an input binding.
 app$snapshot()
