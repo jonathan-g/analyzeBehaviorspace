@@ -5,6 +5,7 @@
 * Converted to use plotly via ggplotly for the graphic display.
 * Updated DESCRIPTION to use component libraries from tidyverse instead of the 
   whole tidyverse. Added minimum version numbers.
+* Added tests using shinytest and testthat.
 
 # analyzeBehaviorspace 0.1.3
 

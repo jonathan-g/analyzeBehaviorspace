@@ -2,6 +2,7 @@ library(dplyr)
 library(purrr)
 library(tidyr)
 library(readr)
+library(stringr)
 library(janitor)
 
 is_bs_table <- function(text, skip_lines) {
