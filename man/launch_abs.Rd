@@ -2,7 +2,7 @@
 % Please edit documentation in R/launch_analyze_behaviorspace.R
 \name{launch_abs}
 \alias{launch_abs}
-\title{Launch the AnalyzeBehaviorspace app}
+\title{Launch the analyzeBehaviorspace app}
 \usage{
 launch_abs(rstudio = getOption("analyze_behaviorspace.rstudio"), ...)
 }
@@ -18,7 +18,7 @@ global option \code{options(shinystan.rstudio = TRUE)}.}
 Nothing is returned
 }
 \description{
-Launch the AnalyzeBehaviorspace app in the default web browser. RStudio
+Launch the analyzeBehaviorspace app in the default web browser. RStudio
 users also have the option of launching the app in RStudio's pop-up Viewer.
 }
 \examples{

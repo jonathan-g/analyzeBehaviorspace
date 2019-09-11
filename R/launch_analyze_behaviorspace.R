@@ -9,9 +9,9 @@
 # You should have received a copy of the MIT License along with this program; if
 # not, see <https://opensource.org/licenses/MIT>.
 
-#' Launch the AnalyzeBehaviorspace app
+#' Launch the analyzeBehaviorspace app
 #'
-#' Launch the AnalyzeBehaviorspace app in the default web browser. RStudio
+#' Launch the analyzeBehaviorspace app in the default web browser. RStudio
 #' users also have the option of launching the app in RStudio's pop-up Viewer.
 #'
 #' @export
@@ -30,7 +30,7 @@
 #' }
 #'
 launch_abs <- function(rstudio = getOption("analyze_behaviorspace.rstudio"), ...) {
-  message("\nLaunching AnalyzeBehaviorspace interface.")
+  message("\nLaunching analyzeBehaviorspace interface.")
   invisible(launch(rstudio, ...))
 }
 
@@ -41,7 +41,7 @@ launch <- function(rstudio = FALSE, ...) {
   launch.browser <- if (!rstudio)
     TRUE else getOption("shiny.launch.browser", interactive())
 
-  shiny::runApp(system.file("AnalyzeBehaviorspace", package = "analyzeBehaviorspace"),
+  shiny::runApp(system.file("abs_app", package = "analyzeBehaviorspace"),
                 launch.browser = launch.browser, ...)
   invisible()
 }

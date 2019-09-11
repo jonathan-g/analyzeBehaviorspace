@@ -30,7 +30,7 @@ No-U-Turn sampler).
 \section{Bug reports}{
 
 \itemize{
- \item AnalyzeBehaviorspace issue tracker (\url{https://github.com/jonathan-g/analyzeBehaviorspace/issues})
+ \item analyzeBehaviorspace issue tracker (\url{https://github.com/jonathan-g/analyzeBehaviorspace/issues})
 }
 }
 
