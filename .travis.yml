@@ -1,11 +1,5 @@
 language: r
 sudo: false
-
 cache:
   packages: true
-  - travis_phantomjs
-
-before_install:
-  - "phantomjs --version"
-
 after_failure: "cat /home/travis/build/jonathan-g/analyzeBehaviorspace/analyzeBehaviorspace.Rcheck/00install.out"
