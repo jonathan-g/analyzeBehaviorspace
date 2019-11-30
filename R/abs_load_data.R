@@ -52,7 +52,14 @@ classify_vars <- function(df) {
 #'   names. By default, this just maps column names to themselves.
 #' * \code{success}: A logical variable indicating success or failure.
 #' * \code{cause}: A character variable indicating the cause of failure.
-#'
+#' @examples
+#' \dontrun{
+#'   load_bs_table(
+#'     system.file("test_data/butterfly_small-experiment-table.csv",
+#'       "analyzeBehaviorspace", mustWork = TRUE)
+#'     )
+#' }
+#' @export
 load_bs_table <- function(filename, text = NULL, quiet = TRUE) {
   if (! missing(filename)) {
     text <- read_file(filename)

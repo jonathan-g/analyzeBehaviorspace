@@ -3,7 +3,7 @@ app$snapshotInit("test_abs")
 
 app$snapshot()
 
-app$uploadFile(file1 = "../../test_data/butterfly_class_06a_small-experiment-table.csv")
+app$uploadFile(file1 = "../../test_data/butterfly_small-experiment-table.csv")
 app$snapshot()
 
 app$setInputs(last_tick = TRUE, wait_=FALSE, values_=FALSE)
