@@ -3,20 +3,16 @@
     "error_bars": "none",
     "file1": null,
     "group_var": "",
-    "group_var-selectized": "",
     "last_tick": false,
     "lines": false,
     "points": true,
     "quit_button": 0,
     "ren_from": "",
-    "ren_from-selectized": "",
     "ren_to": "",
     "rename": 0,
     "summary_tab": false,
     "x_var": "",
-    "x_var-selectized": "",
-    "y_var": "",
-    "y_var-selectized": ""
+    "y_var": ""
   },
   "output": {
     "plot": {
@@ -39,9 +35,9 @@
       "deps": [
         {
           "name": "dt-core",
-          "version": "1.10.16",
+          "version": "1.10.19",
           "src": {
-            "href": "dt-core-1.10.16"
+            "href": "dt-core-1.10.19"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",

@@ -7,3 +7,5 @@
 ^LICENSE\.R?md$
 ^README\.R?md$
 ^README-.*\.(png|jpg|jpeg|pdf)$
+^vignettes/.*/Corel Auto-Preserve/.*$
+^inst/abs_app/texts/test_abs-current/.*$
