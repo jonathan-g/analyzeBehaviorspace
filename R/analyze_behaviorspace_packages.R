@@ -61,5 +61,6 @@
 #' @import stringr
 #' @import ggplot2
 #' @import janitor
+#' @importFrom rlang .data
 #'
 NULL

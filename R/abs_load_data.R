@@ -22,7 +22,7 @@ classify_vars <- function(df) {
     ind_vars <- n[(run + 1):(tick - 1)]
   }
   tick2 <- which(nn == 'tick')
-  dep_vars <-  tail(nn, -tick)
+  dep_vars <-  utils::tail(nn, -tick)
   list(ind_vars = ind_vars, dep_vars = dep_vars)
 }
 
@@ -127,9 +127,9 @@ load_bs_table <- function(filename, text = NULL, quiet = TRUE) {
   #d <- d %>% select_(.dots = num_vars) %>%
   f <- function(x) { ! is.numeric(x)}
   if (length(factor_vars) > 0) {
-    d <- d %>% mutate_if(f, funs(factor(.)))
+    d <- d %>% mutate_if(f, funs(factor(.data$.)))
   }
-  d <- d %>% arrange(run, tick)
+  d <- d %>% arrange(.data$run, .data$tick)
   names(d) <- str_replace_all(names(d), '\\.+','.')
   num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
   factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
