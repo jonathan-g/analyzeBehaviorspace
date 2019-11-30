@@ -27,7 +27,32 @@ classify_vars <- function(df) {
 }
 
 
-
+#' Load output from a NetLogo Behaviorspace experiment
+#'
+#' \code{load_bs_table} loads the table output from a NetLogo Behaviorspace
+#' experiment.
+#'
+#' This function loads and decodes table output from a NetLogo Behaviorspace
+#' experiment. It can take either a filename or the text contents of such a
+#' file.
+#'
+#' @param filename The name of a Behaviorspace table output file (\code{.csv}
+#'   format).
+#' @param text Text contents of a Behaviorspace table output file (\code{.csv}
+#'   format).
+#' @param quiet Logical value indicating whether to run quietly or report
+#'   progress messages.
+#' @return A named list with elements:
+#' * \code{data}: a data frame containing the experiment data.
+#' * \code{ind_vars}: a character vector with the names of the independent
+#'   variables.
+#' * \code{dep_vars}: a character vector with the names of the dependent
+#'   variables.
+#' * \code{mapping}: a data frame mapping columns in \code{data} to variable
+#'   names. By default, this just maps column names to themselves.
+#' * \code{success}: A logical variable indicating success or failure.
+#' * \code{cause}: A character variable indicating the cause of failure.
+#'
 load_bs_table <- function(filename, text = NULL, quiet = TRUE) {
   if (! missing(filename)) {
     text <- read_file(filename)
