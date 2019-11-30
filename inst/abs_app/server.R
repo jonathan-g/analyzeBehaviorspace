@@ -27,8 +27,6 @@ library(plotly)
 
 options(shiny.maxRequestSize = 300 * 1024^2)
 
-source("abs_load_data.R")
-
 #instaoptions(warn = 2)
 
 count_unique <- function(col_names, df) {

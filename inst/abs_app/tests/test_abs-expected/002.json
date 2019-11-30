@@ -3,10 +3,10 @@
     "error_bars": "none",
     "file1": {
       "name": [
-        "butterfly_class_06a_small-experiment-table.csv"
+        "butterfly_small-experiment-table.csv"
       ],
       "size": [
-        3463
+        3453
       ],
       "type": [
         "text/csv"
