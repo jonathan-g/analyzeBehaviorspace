@@ -3,6 +3,7 @@
 ^\.travis\.yml$
 ^\.gitlab-ci\.yml$
 ^analyzeBehaviorspace\.Rproj$
+^LICENCE$
 ^LICENSE\.R?md$
 ^README\.R?md$
 ^README-.*\.(png|jpg|jpeg|pdf)$
