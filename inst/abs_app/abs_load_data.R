@@ -28,13 +28,19 @@ classify_vars <- function(df) {
 
 
 
-load_bs_table <- function(text) {
+load_bs_table <- function(filename, text = NULL, quiet = TRUE) {
+  if (! missing(filename)) {
+    text <- read_file(filename)
+  }
   ret_fail <- list(data = NULL, ind_vars = NULL, dep_vars = NULL,
                    mapping = NULL, success = FALSE,
                    cause = character(0))
 
   text_lines <- text %>%  str_split('\n') %>% simplify()
-  message("File length = ", str_length(text), ": Split into ", length(text_lines), " lines.")
+
+  if (! quiet) {
+    message("File length = ", str_length(text), ": Split into ", length(text_lines), " lines.")
+  }
 
   skip_lines <- which(str_detect(text_lines, '^"?\\[run number\\]"?'))
   if (length(skip_lines) == 0) {
@@ -45,13 +51,18 @@ load_bs_table <- function(text) {
 
   skip_lines = skip_lines[1] - 1
 
-  message("Skip lines = ", skip_lines)
+  if (!quiet) {
+    message("Skip lines = ", skip_lines)
+  }
 
   if (! is_bs_table(text, skip_lines)) {
     ret_fail$cause = "spreadsheet"
     return(ret_fail)
   }
-  message("File is a BS table")
+
+  if (!quiet) {
+    message("File is a BS table")
+  }
 
   d <- read_csv(text, skip = skip_lines, n_max = 100)
 
@@ -69,11 +80,18 @@ load_bs_table <- function(text) {
     d <- d[,-which(duplicated(names(d)))]
   }
 
-  message("Names = (", str_c(names(d), collapse = ", "), ")")
+  if (!quiet) {
+    message("Names = (", str_c(names(d), collapse = ", "), ")")
+  }
+
   num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
   factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
-  message("numeric columns = ", paste(num_vars, collapse = ", "))
-  message("factor columns = ", paste(factor_vars, collapse = ", "))
+
+  if (!quiet) {
+    message("numeric columns = ", paste(num_vars, collapse = ", "))
+    message("factor columns = ", paste(factor_vars, collapse = ", "))
+  }
+
   #d <- d %>% select_(.dots = num_vars) %>%
   f <- function(x) { ! is.numeric(x)}
   if (length(factor_vars) > 0) {
@@ -83,13 +101,21 @@ load_bs_table <- function(text) {
   names(d) <- str_replace_all(names(d), '\\.+','.')
   num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
   factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
-  message("numeric columns = ", paste(num_vars, collapse = ", "))
-  message("factor columns = ", paste(factor_vars, collapse = ", "))
+
+  if (!quiet) {
+    message("numeric columns = ", paste(num_vars, collapse = ", "))
+    message("factor columns = ", paste(factor_vars, collapse = ", "))
+  }
+
   vars <- classify_vars(d)
-  message("ind_vars = ", paste(vars$ind_vars, collapse = ", "))
-  message("dep_vars = ", paste(vars$dep_vars, collapse = ", "))
-  message("Done loading data: ", nrow(d), " rows.")
-  invisible(list(data = d, ind_vars = vars$ind_vars, dep_vars = vars$dep_vars,
+
+  if (!quiet) {
+    message("ind_vars = ", paste(vars$ind_vars, collapse = ", "))
+    message("dep_vars = ", paste(vars$dep_vars, collapse = ", "))
+    message("Done loading data: ", nrow(d), " rows.")
+  }
+
+    invisible(list(data = d, ind_vars = vars$ind_vars, dep_vars = vars$dep_vars,
                  mapping = tibble(col = names(d), name = names(d)),
                  success = TRUE, cause = character(0)))
 

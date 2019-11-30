@@ -135,7 +135,7 @@ shinyServer(function(input, output, session) {
 
     message("Reading input")
     text <- read_file(inFile$datapath) %>% str_replace_all("\r\n", "\n") %>% str_replace_all("\r", "\n")
-    dat <- load_bs_table(text)
+    dat <- analyzeBehaviorspace::load_bs_table(text = text, quiet = FALSE)
     message("returned from load_bs_table()")
     message("    success = ", dat$success)
     if (is.null(dat$data))
