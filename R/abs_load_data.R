@@ -56,39 +56,11 @@ classify_vars <- function(df) {
 }
 
 
-#' Load output from a NetLogo BehaviorSpace experiment
+#' @describeIn load_bs_file Load a BehaviorSpace experiment in spreadsheet
+#'   format.
 #'
-#' \code{load_bs_table} loads the table output from a NetLogo BehaviorSpace
-#' experiment.
-#'
-#' This function loads and decodes table output from a NetLogo BehaviorSpace
-#' experiment. It can take either a filename or the text contents of such a
-#' file.
-#'
-#' @param filename The name of a BehaviorSpace table output file (\code{.csv}
-#'   format).
-#' @param text Text contents of a BehaviorSpace table output file (\code{.csv}
-#'   format).
-#' @param quiet Logical value indicating whether to run quietly or report
-#'   progress messages.
-#' @return A named list with elements:
-#' * \code{data}: a data frame containing the experiment data.
-#' * \code{ind_vars}: a character vector with the names of the independent
-#'   variables.
-#' * \code{dep_vars}: a character vector with the names of the dependent
-#'   variables.
-#' * \code{mapping}: a data frame mapping columns in \code{data} to variable
-#'   names. By default, this just maps column names to themselves.
-#' * \code{success}: A logical variable indicating success or failure.
-#' * \code{cause}: A character variable indicating the cause of failure.
-#' @examples
-#' \dontrun{
-#'   load_bs_table(
-#'     system.file("test_data/butterfly_small-experiment-table.csv",
-#'       "analyzeBehaviorspace", mustWork = TRUE)
-#'     )
-#' }
 #' @export
+#'
 load_bs_table <- function(filename = NULL, text = NULL, quiet = TRUE) {
   if (! (missing(filename) || is.null(filename) || is.na(filename))) {
     text <- read_file(filename)
@@ -194,6 +166,9 @@ process_bs_data <- function(d, quiet = TRUE) {
 
 #' @describeIn load_bs_file Load a BehaviorSpace experiment in spreadsheet
 #'   format.
+#'
+#' @export
+#'
 load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
   if (! (missing(filename) || is.null(filename) || is.na(filename))) {
     text <- read_file(filename)
@@ -255,19 +230,21 @@ load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
   invisible(ret)
 }
 
-#' Process data from a BehaviorSpace experiment
+#' Load output from a NetLogo BehaviorSpace experiment
 #'
-#' Take the data read from a spreadsheet or tabular BehaviorSpace experiment
-#' and process it
+#' \code{load_bs_table} loads the table output from a NetLogo BehaviorSpace
+#' experiment.
 #'
-#' This function loads and decodes output from a NetLogo BehaviorSpace
+#' This function loads and decodes table output from a NetLogo BehaviorSpace
 #' experiment. It can take either a filename or the text contents of such a
 #' file.
 #'
-#' @param d A data frame containing experiment data read from a .csv file.
+#' @param filename The name of a BehaviorSpace table output file (\code{.csv}
+#'   format).
+#' @param text Text contents of a BehaviorSpace table output file (\code{.csv}
+#'   format).
 #' @param quiet Logical value indicating whether to run quietly or report
 #'   progress messages.
-#'
 #' @return A named list with elements:
 #' * \code{data}: a data frame containing the experiment data.
 #' * \code{ind_vars}: a character vector with the names of the independent
@@ -278,6 +255,14 @@ load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
 #'   names. By default, this just maps column names to themselves.
 #' * \code{success}: A logical variable indicating success or failure.
 #' * \code{cause}: A character variable indicating the cause of failure.
+#' @examples
+#' \dontrun{
+#'   load_bs_table(
+#'     system.file("test_data/butterfly_small-experiment-table.csv",
+#'       "analyzeBehaviorspace", mustWork = TRUE)
+#'     )
+#' }
+#'
 #' @export
 #'
 load_bs_file <- function(filename = NULL, text = NULL, quiet = TRUE) {
