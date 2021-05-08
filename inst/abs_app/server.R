@@ -24,29 +24,11 @@ library(stringr)
 library(ggplot2)
 library(shinyalert)
 library(plotly)
+library(analyzeBehaviorspace)
 
 options(shiny.maxRequestSize = 300 * 1024^2)
 
 #instaoptions(warn = 2)
-
-count_unique <- function(col_names, df) {
-  lapply(as.character(col_names), function(x) {
-    length(unique(df[,x])) > 1
-   }) %>%
-  unlist()
-}
-
-extract_last_tick <- function(df, vars) {
-  # max_tick <- max(exp_data$tick, na.rm=T)
-  # message("Filtering to last tick: ", max_tick)
-  #exp_data <- exp_data %>% filter(tick == max_tick)
-  lt_vars <- c('run', vars) %>% discard(~.x == 'tick')
-  message("lt_vars = ", paste(lt_vars, collapse = ', '))
-  df %>% group_by_(.dots = lt_vars) %>%
-    top_n(1, tick) %>%
-    ungroup() %>%
-    invisible()
-}
 
 shinyServer(function(input, output, session) {
   cdata <- session$clientData
@@ -58,62 +40,37 @@ shinyServer(function(input, output, session) {
     mapping = NULL
   )
 
-  tx_name <- function(var_name, mapping) {
-    mapping$col[mapping$name == var_name]
-  }
-
-  tx_col <- function(var_col, mapping) {
-    mapping$name[mapping$col == var_col]
-  }
-
   expt_vars <- reactive({
     message("expt_vars")
-    df <- experiment$data
-    vars <- experiment$mapping
-    if (is.null(df) || is.null(vars)) return(NULL)
-    message("data = ", class(df))
-    message("mapping = ", paste(names(vars), collapse = ", "))
-    vars <- vars %>% filter(!(name %in% c('run')))
-    vars <- vars %>% filter( (col %>% as.character() %>%
-              lapply(function(x) {
-                (df %>% select_(x) %>% distinct() %>% nrow()) > 1
-                }) %>% unlist())
-      )
-    message("expt_vars = (", paste(vars$name, vars$col, sep = " = ", collapse = ", "), ")")
+    vars <- analyzeBehaviorspace::get_expt_vars(experiment)
+    message("expt_vars = (", paste(vars$name, vars$col, sep = " = ",
+                                   collapse = ", "), ")")
     vars
   })
 
   expt_yvars <- reactive({
     message("expt_yvars")
-    x_var <- input$x_var
-    vars <- expt_vars()
-    if (is.null(vars)) return(NULL)
-    vars <- vars %>% filter(col != x_var)
-    message("expt_yvars = (", paste(vars$name, vars$col, sep = " = ", collapse = ", "), ")")
+    vars <- analyzeBehaviorspace::get_yvars(experiment, input$x_var)
+    message("expt_yvars = (", paste(vars$name, vars$col, sep = " = ",
+                                    collapse = ", "), ")")
     vars
   })
 
   expt_group_vars <- reactive({
     message("expt_group_vars")
-    vars <- expt_yvars()
-    y_var <- input$y_var
-    ind_vars <- experiment$ind_vars
-    if (any(is.null(vars), is.null(y_var), is.null(ind_vars))) return(NULL)
-    vars <- vars %>% filter(col != y_var & col %in% ind_vars)
-    message("expt_group_ vars = (", paste(vars$name, vars$col, sep = " = ", collapse = ", "), ")")
+    vars <- analyzeBehaviorspace::get_group_vars(experiment, input$x_var,
+                                                 input$y_var)
+    message("expt_group_ vars = (", paste(vars$name, vars$col, sep = " = ",
+                                          collapse = ", "), ")")
     vars
   })
 
   expt_plot_vars <- reactive({
     message("expt_plot_vars")
-    y_var <- input$y_var
-    ind_vars <- experiment$ind_vars
-    dep_vars <- experiment$dep_vars
-    vars <- expt_yvars()
-    if (any(is.null(y_var), is.null(ind_vars), is.null(dep_vars), is.null(vars)))
-      return(NULL)
-    vars <- vars %>% filter(name != y_var & col %in% c(ind_vars, dep_vars))
-    message("expt_plot_vars = (", paste(vars$name, vars$col, sep = " = ", collapse = ", "), ")")
+    vars <- analyzeBehaviorspace::get_plot_vars(experiment, input$x_var,
+                                                input$y_var)
+    message("expt_plot_vars = (",
+            paste(vars$name, vars$col, sep = " = ", collapse = ", "), ")")
     vars
   })
 
@@ -125,28 +82,34 @@ shinyServer(function(input, output, session) {
     # be found.
 
     validate(
-      need(! is.null(input$file1), "Please select a .csv file from a BehaviorSpace experiment.")
+      need(! is.null(input$file1),
+           "Please select a .csv file from a BehaviorSpace experiment.")
     )
 
     inFile <- input$file1
     if (is.null(inFile)) return(NULL)
 
     message("Reading input")
-    text <- read_file(inFile$datapath) %>% str_replace_all("\r\n", "\n") %>% str_replace_all("\r", "\n")
-    dat <- analyzeBehaviorspace::load_bs_table(text = text, quiet = FALSE)
-    message("returned from load_bs_table()")
+    text <- read_file(inFile$datapath) %>%
+      str_replace_all("\r\n", "\n") %>%
+      str_replace_all("\r", "\n")
+    dat <- analyzeBehaviorspace::load_bs_file(text = text, quiet = FALSE)
+    message("returned from load_bs_file()")
     message("    success = ", dat$success)
     if (is.null(dat$data))
       message("    data = NULL")
     else
-      message("    data dimensions (", str_c(dim(dat$data), collapse = ", "), ")")
+      message("    data dimensions (", str_c(dim(dat$data), collapse = ", "),
+              ")")
     if (! dat$success) {
       detail <- character(0)
-      text <- "You must provide a .csv file containing the output of a NetLogo BehaviorSpace experiment in table format."
+      text <-
+        "You must provide a .csv file containing the output of a NetLogo BehaviorSpace experiment in table format."
       if (dat$cause == "not_bs") {
         text <- "The file does not seem to be a BehaviorSpace experiment."
       } else if (dat$cause == "spreadsheet") {
-        text <- "The file seems to be a BehaviorSpace experiment in spreadsheet format.\nYou need to choose \"table\" format for the BehaviorSpace output."
+        text <-
+          "The file seems to be a BehaviorSpace experiment in spreadsheet format.\nYou need to choose \"table\" format for the BehaviorSpace output."
       }
       shinyalert(title="Bad file format", text = text, type="error")
       return(NULL)
@@ -155,7 +118,7 @@ shinyServer(function(input, output, session) {
   })
 
   observeEvent(bs_data(), {
-    message("New Behaviorspace Data")
+    message("New BehaviorSpace Data")
     expt <- bs_data()
     experiment$data <- expt$data
     experiment$ind_vars <- expt$ind_vars
@@ -177,12 +140,16 @@ shinyServer(function(input, output, session) {
     vars <- expt_vars() %>% {set_names(.$col, .$name)} %>% as.list()
     if (! xv %in% vars) xv <- ''
     updateSelectInput(session, "x_var", choices = vars, selected = xv)
-    message("Set x_var choices to (", paste(names(vars), vars, sep = " = ", collapse=", "), "), selection = ", xv)
+    message("Set x_var choices to (",
+            paste(names(vars), vars, sep = " = ", collapse=", "),
+            "), selection = ", xv)
 
     rvars <- expt_vars()%>% {set_names(.$col, .$name)} %>% as.list()
     if (! rv %in% rvars) rv <- ''
     updateSelectInput(session, "ren_from", choices = rvars, selected = rv)
-    message("Set rename_from choices to (", paste(names(rvars), rvars, sep = " = ", collapse=", "), "), selection = ", rv)
+    message("Set rename_from choices to (",
+            stringr::str_c(names(rvars), rvars, sep = " = ", collapse=", "),
+            "), selection = ", rv)
   })
 
   observeEvent(expt_yvars(), {
@@ -191,7 +158,9 @@ shinyServer(function(input, output, session) {
     yvars <- expt_yvars() %>% {set_names(.$col, .$name)} %>% as.list()
     if (! yv %in% yvars) yv <- ''
     updateSelectInput(session, "y_var", choices = yvars, selected = yv)
-    message("Set y_var choices to (", paste(names(yvars), yvars, sep = " = ", collapse=", "), "), selection = ", yv)
+    message("Set y_var choices to (",
+            stringr::str_c(names(yvars), yvars, sep = " = ", collapse=", "),
+            "), selection = ", yv)
   })
 
   observeEvent(expt_group_vars(), {
@@ -200,7 +169,9 @@ shinyServer(function(input, output, session) {
     gvars <- expt_group_vars() %>% {set_names(.$col, .$name)} %>% as.list()
     if (! gv %in% gvars) gv <- ''
     updateSelectInput(session, "group_var", choices = gvars, selected = gv)
-    message("Set group_var choices to (", paste(names(gvars), gvars, sep = " = ", collapse=", "), "), selection = ", gv)
+    message("Set group_var choices to (",
+            stringr::str_c(names(gvars), gvars, sep = " = ", collapse=", "),
+            "), selection = ", gv)
   })
 
   observeEvent(input$rename, {
@@ -226,172 +197,45 @@ shinyServer(function(input, output, session) {
 
   plot_data <- reactive({
     message("plot_data")
-    x_var <- input$x_var
-    y_var <- input$y_var
-    g_var <- input$group_var
-    last_tick <- input$last_tick
-    exp_data <- experiment$data
-    mapping <- experiment$mapping
-
-    if (x_var == '' || y_var == '') {
-      return(NULL)
-    }
-
-    # message("plot_data: Data = ", class(exp_data))
-    if (is.null(exp_data) || is.null(mapping)) {
-      # message("plot_data: empty data")
-      return(NULL)
-    }
-    if (! all(expt_plot_vars()$col %in% names(exp_data))) {
-      # message("Variable mismatch")
-      return(NULL)
-    }
-    # message("Checking plotting variables")
-    if (! all(c(x_var, y_var) %in% names(exp_data))) {
-      # message("Bad plotting variables")
-      return(NULL)
-    }
-    if (g_var != '') {
-      # message("Checking group variable")
-      if (! g_var %in% names(exp_data)) {
-        message("Bad group variable ", g_var)
-      }
-    }
-
-    pv <- expt_plot_vars()
-    gv <- expt_group_vars()
-    message("Plot vars = ", paste0(pv, collapse = ', '))
-    message("Group vars = ", paste0(gv, collapse = ', '))
-
-    if (last_tick || (! 'tick' %in% c(x_var, y_var))) {
-      message("Processing for last tick")
-      exp_data <- exp_data %>% extract_last_tick(experiment$ind_vars)
-    }
-
-    message(paste0(names(gv), collapse = ", "))
-    message("g_var = ", g_var, ", gv = (", paste0(gv, collapse = ", "), "), grouping = ", (g_var %in% gv))
-
-    if (length(pv) >= 1) {
-      if (g_var %in% gv$col) {
-        vv <- c(x_var, g_var)
-      } else {
-        vv <- c(x_var)
-      }
-      if (!last_tick) vv <- c('tick', vv)
-      grouping <- unique(vv)
-      grouping <- grouping %>% discard(~.x == y_var)
-
-      message("Summarizing ", tx_col(y_var, mapping), " by ",
-             paste(map_chr(grouping, tx_col, mapping), collapse=", "))
-      dots <- setNames(paste0(c("mean","sd"), "(", y_var, ")"),
-                       c(paste0(y_var, "_mean"), paste0(y_var, "_sd")))
-      message("dots = ", paste0(dots, collapse = ", "))
-      message("Grouping")
-      exp_data <- exp_data %>% group_by_(.dots = grouping) %>%
-        summarize_(.dots = dots) %>%
-        rename_(.dots = setNames(list(paste0(y_var, "_mean")), y_var)) %>%
-        ungroup()
-      message("Ungrouped: names = ", paste0(names(exp_data), collapse = ', '))
-    }
-    exp_data
+    data <-  analyzeBehaviorspace::get_plot_data(experiment, input$x_var,
+                                                 input$y_var, input$group_var,
+                                                 input$last_tick)
+    data
   })
 
   plot_mapping <- reactive({
     message("plot_mapping")
-    x_var <- input$x_var
-    y_var <- input$y_var
-    g_var <- input$group_var
-    err_bars <- input$error_bars
-    mapping <- experiment$mapping
-    if (x_var == "" || y_var == "") return(NULL)
-    if (is.null(mapping)) return(NULL)
-    gv <- expt_group_vars()
-    plt_data <- plot_data()
-    # message("Mapping")
-    p_map_list = list(x = x_var, y = y_var)
-    plot_legend <- NULL
-    if (g_var %in% gv$col) {
-      p_map_list <- c(p_map_list,
-                      colour = paste0("ordered(", g_var,")"),
-                      fill = paste0("ordered(", g_var,")")
-                      )
-      plot_legend <- tx_col(g_var, mapping)
-    }
-    sd_name <- paste0(y_var, "_sd")
-    if (err_bars != 'none' && sd_name %in% names(plt_data)) {
-      p_map_list <- c(p_map_list,
-                      ymin = paste0(y_var, " - ", sd_name),
-                      ymax = paste0(y_var, " + ", sd_name)
-      )
-    }
-    p_map <- do.call(aes_string, p_map_list)
-    plot_labs <- labs(x = tx_col(x_var, mapping), y = tx_col(y_var, mapping))
-    rval <- list(mapping = p_map, labels = plot_labs, legend = plot_legend)
-    # message("plot_mapping: rval = ", rval)
-    rval
+    plt_map <- analyzeBehaviorspace::get_plot_mapping(experiment, plot_data(),
+                                                      input$x_var, input$y_var,
+                                                      input$group_var,
+                                                      input$error_bars)
+    plt_map
   })
-
 
   makeplot <- reactive({
     message("makeplot")
-    points <- input$points
-    lines <- input$lines
-    y_var <- input$y_var
-    err_bars <- input$error_bars
-    if (input$x_var == '' || input$y_var == '') {
-      message("no variables selected to plot")
-      return(NULL)
-    }
-    p_map <- plot_mapping()
-    df <- plot_data()
-    if (is.null(p_map) || is.null(df)) {
-      message("no data to plot")
-      return(NULL)
-    }
-    message("Plotting ", nrow(df), " rows of data")
-    sd_name <- paste0(y_var, "_sd")
-    # message("plot: variables = (", paste(names(df), collapse = ", "), ")")
-    # message("plot: mapping = ", p_map)
-    pm_mapping <- p_map$mapping
-    pm_labs <- p_map$labels
-    pm_legend <- p_map$legend
-    # message("Plotting")
-    p <- ggplot(df, pm_mapping)
-    if (lines) p <- p + geom_line()
-    if (sd_name %in% names(df)) {
-      if (err_bars == 'error bars') {
-        p <- p + geom_errorbar()
-      } else if (err_bars == 'bands') {
-        p <- p + geom_ribbon(alpha = 0.3)
-      }
-    }
-    if (points) p <- p + geom_point()
-    if (! is.null(pm_legend)) {
-      # message("adding legend ", pm_legend)
-      p <- p + scale_colour_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
-      p <- p + scale_fill_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
-    }
-    # message("Labs = ", pm_labs)
-    p <- p + pm_labs
-    p <- p + theme_bw(base_size = 20)
+    p <- analyzeBehaviorspace::make_plot(experiment, input$points, input$lines,
+                                         input$x_var, input$y_var,
+                                         input$group_var, input$err_bars,
+                                         input$last_tick)
     message("Done making plot")
     p
   })
 
-
   maketable <- reactive({
     message("making table")
     if (is.null(experiment$data)) return(NULL)
-    dots <- experiment$mapping %>% {set_names(.$col, .$name)}
+    new_names <- experiment$mapping %>% {set_names(.$col, .$name)}
     expt_data <- plot_data()
     if((! input$summary_tab) || is.null(expt_data)) {
       expt_data <- experiment$data
       if (input$last_tick) {
-        expt_data <- expt_data %>% extract_last_tick(experiment$ind_vars)
+        # expt_data <- expt_data %>% extract_last_tick(experiment$ind_vars)
+        expt_data <- expt_data %>% extract_last_tick()
       }
     }
-    dots <- dots %>% keep(~.x %in% names(expt_data))
-    expt_data <- expt_data %>% rename_(.dots = dots)
+    new_names <- new_names %>% keep(~.x %in% names(expt_data)) %>% syms()
+    expt_data <- expt_data %>% rename(!!!new_names)
     message("done making table")
     return(expt_data)
   })

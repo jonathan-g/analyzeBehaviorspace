@@ -27,14 +27,14 @@ library(analyzeBehaviorspace)
 
 First, download and install NetLogo from 
 <https://ccl.northwestern.edu/netlogo/download.shtml>.
-NetLogo is available for Windoows, MacOS, and Linux.
+NetLogo is available for Windows, MacOS, and Linux.
 Follow the installation instructions for your operating system
 on the Download page.
 
-## Running a Behaviorspace Experiment
+## Running a BehaviorSpace Experiment
 
-The `analyzeBehaviorspace` package analyzes output from a NetLogo Behaviorspace
-experiment, so to use this package we first need to create a Behaviorspace 
+The `analyzeBehaviorspace` package analyzes output from a NetLogo BehaviorSpace
+experiment, so to use this package we first need to create a BehaviorSpace 
 experiment in NetLogo and run it.
 
 Start NetLogo, open the `File` menu, and select `Models Library`. This should 
@@ -67,18 +67,18 @@ and unhappy turtles, as well as the average percentage of same-color neighbors
 across all of the turtles. The model and keeps running until there are no 
 unhappy turtles.
 
-For the behaviorspace experiment, we will vary the two variables `density` and 
+For the BehaviorSpace experiment, we will vary the two variables `density` and 
 `%-similar-wanted` and monitor the average fraction of similar neighbors and
 the percentage of turtles that are unhappy.
 
 In order to keep the run time under control, we will limit the model to run for 
 no more than 200 ticks.
 
-Open Behaviorspace by clicking on the `Tools` menu and selecting `Behaviorspace`.
-Then click on the `New` button to create a new Behaviorspace experiment.
+Open BehaviorSpace by clicking on the `Tools` menu and selecting `BehaviorSpace`.
+Then click on the `New` button to create a new BehaviorSpace experiment.
 Fill in the experiment following the picture below:
 
-![Behaviorspace experiment for the segregation model](images/behaviorspace.png)
+![BehaviorSpace experiment for the segregation model](images/behaviorspace.png)
 
 This experiment will vary `density` from 80% to 95% in steps of 5% and vary 
 `%-similar-wanted` from 25% to 95% in steps of 2%. It will run the model 10
@@ -97,14 +97,14 @@ record the values of two of the model's reporters: `percent-similar` and
 Click on the `OK` button to save the experiment and then click `Run` to run it.
 You will need to configure the run to generate the required output:
 
-![Configure output for running a behaviorspace experiment](images/run_behaviorspace.png)
+![Configure output for running a BehaviorSpace experiment](images/run_behaviorspace.png)
 
 Check `Table output`, uncheck `Update view` and `Update plots and monitors`.
 Experiments run much faster if they don't have to update the model displays. 
 Under `Simultaneous runs in parallel` NetLogo will make a good guess, based on
 your computer's hardware and it's best to accept this default value.
 
-Now click on the `OK` button. Behaviorspace will ask you to give it a filename
+Now click on the `OK` button. BehaviorSpace will ask you to give it a filename
 for saving your experiment's results (the default will be
 `Segregation experiment-table.csv`). Give it a file name and then let the 
 experiment run (this may take some time).
@@ -125,7 +125,7 @@ When the application launches, it will open a web browser window where you can
 load your data file and analyze the data.
 
 Under `Choose csv file`, click the `Browse...` button and choose the file you
-saved from Behaviorspace (by default, this is `Segregation experiment-table.csv`).
+saved from BehaviorSpace (by default, this is `Segregation experiment-table.csv`).
 After the file finishes loading, you should see something like this:
 
 ![analyzeBehaviorspace screen](images/abs_initial.png)
@@ -175,7 +175,7 @@ The greater the density, the lower the value of `percent-similar-wanted` at
 which it becomes difficult to satisfy all the turtles.
 
 We also see that the range of values for `percent-similar-wanted` for which 
-there is consiederable variation from run to run is much smaller when we 
+there is considerable variation from run to run is much smaller when we 
 consider each value of `density` separately.
 
 ## Renaming variables

@@ -14,8 +14,6 @@ knitr::opts_chunk$set(
 ```
 # analyzeBehaviorspace
 
-[![Build Status](https://travis-ci.org/jonathan-g/analyzeBehaviorspace.svg?branch=master)](https://travis-ci.org/jonathan-g/analyzeBehaviorspace)
-
 This is a shiny app to analyze table output from NetLogo BehaviorSpace 
 experiments. 
 
@@ -40,8 +38,8 @@ launch_abs()
 ```
 
 The app should start running, and open the `analyzeBehaviorspace` app in your web browser. When the app is running, 
-load a `.csv` file containing the table output from a Behaviorspace run. Then you will see a table of values for all 
-the control and output variables at each tick of each behaviorspace run. You can generate summary plots and tables 
+load a `.csv` file containing the table output from a BehaviorSpace run. Then you will see a table of values for all 
+the control and output variables at each tick of each BehaviorSpace run. You can generate summary plots and tables 
 by choosing variables for the _x_ and _y_ axes and a grouping variable (if you choose a grouping variable, each 
 different value of that variable will be represented by a different color in the plots).
 

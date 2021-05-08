@@ -62,5 +62,6 @@
 #' @import ggplot2
 #' @import janitor
 #' @importFrom rlang .data
+#' @importFrom stats na.omit sd
 #'
 NULL
