@@ -245,7 +245,7 @@ load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
                        values_from = "na") %>%
     janitor::clean_names() %>%
     dplyr::select(-"foo") %>%
-    dplyr::group_by("run", "tick") %>%
+    dplyr::group_by(.data$run, .data$tick) %>%
     dplyr::summarize(across(everything(), ~unique(na.omit(.x))),
                      .groups = "drop") %>%
     dplyr::mutate(across(everything(), parse_guess)) %>%

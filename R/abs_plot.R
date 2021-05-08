@@ -173,6 +173,9 @@ make_plot <- function(experiment, points, lines, x_var, y_var, group_var,
   if (x_var == '' || y_var == '') {
     message("no variables selected to plot")
     return(NULL)
+  } else {
+    message("x = ", x_var, ", y = ", y_var, " group = ", group_var,
+            ", error bars = ", error_bars, ", last_tick = ", last_tick)
   }
   df <- get_plot_data(experiment, x_var, y_var, group_var, last_tick)
   p_map <- get_plot_mapping(experiment, df, x_var, y_var, group_var, error_bars)
@@ -187,27 +190,34 @@ make_plot <- function(experiment, points, lines, x_var, y_var, group_var,
   pm_mapping <- p_map$mapping
   pm_labs <- p_map$labels
   pm_legend <- p_map$legend
-  # message("Plotting")
+  message("Plotting...")
   p <- ggplot(df, pm_mapping)
+  message("lines = ", lines)
   if (lines) {
     p <- p + geom_line()
   }
+  message("sd name = ", sd_name)
   if (sd_name %in% names(df)) {
+    message("error bars = ", error_bars)
     if (error_bars == 'error bars') {
       p <- p + geom_errorbar()
     } else if (error_bars == 'bands') {
       p <- p + geom_ribbon(alpha = 0.3)
     }
   }
+  message("points = ", points)
   if (points) {
+    message("points")
     p <- p + geom_point()
   }
   if (! is.null(pm_legend)) {
+    message("legend")
     # message("adding legend ", pm_legend)
     p <- p + scale_colour_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
     p <- p + scale_fill_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
   }
-  # message("Labs = ", pm_labs)
+  message("Labs = ",
+          str_c(names(pm_labs), pm_labs, sep = ": ", collapse = ", "))
   p <- p + pm_labs
   p <- p + theme_bw(base_size = 20)
   message("Done making plot")

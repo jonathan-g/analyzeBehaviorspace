@@ -33,16 +33,23 @@ options(shiny.maxRequestSize = 300 * 1024^2)
 shinyServer(function(input, output, session) {
   cdata <- session$clientData
 
-  experiment <- reactiveValues(
+  expt_data <- reactiveValues(
     data = NULL,
     ind_vars = NULL,
     dep_vars = NULL,
     mapping = NULL
   )
 
+  experiment <- reactive({
+    list(data = expt_data$data,
+         ind_vars = expt_data$ind_vars,
+         dep_vars = expt_data$dep_vars,
+         mapping = expt_data$mapping)
+  })
+
   expt_vars <- reactive({
     message("expt_vars")
-    vars <- analyzeBehaviorspace::get_expt_vars(experiment)
+    vars <- analyzeBehaviorspace::get_expt_vars(experiment())
     message("expt_vars = (", paste(vars$name, vars$col, sep = " = ",
                                    collapse = ", "), ")")
     vars
@@ -50,7 +57,7 @@ shinyServer(function(input, output, session) {
 
   expt_yvars <- reactive({
     message("expt_yvars")
-    vars <- analyzeBehaviorspace::get_yvars(experiment, input$x_var)
+    vars <- analyzeBehaviorspace::get_yvars(experiment(), input$x_var)
     message("expt_yvars = (", paste(vars$name, vars$col, sep = " = ",
                                     collapse = ", "), ")")
     vars
@@ -58,7 +65,7 @@ shinyServer(function(input, output, session) {
 
   expt_group_vars <- reactive({
     message("expt_group_vars")
-    vars <- analyzeBehaviorspace::get_group_vars(experiment, input$x_var,
+    vars <- analyzeBehaviorspace::get_group_vars(experiment(), input$x_var,
                                                  input$y_var)
     message("expt_group_ vars = (", paste(vars$name, vars$col, sep = " = ",
                                           collapse = ", "), ")")
@@ -67,7 +74,7 @@ shinyServer(function(input, output, session) {
 
   expt_plot_vars <- reactive({
     message("expt_plot_vars")
-    vars <- analyzeBehaviorspace::get_plot_vars(experiment, input$x_var,
+    vars <- analyzeBehaviorspace::get_plot_vars(experiment(), input$x_var,
                                                 input$y_var)
     message("expt_plot_vars = (",
             paste(vars$name, vars$col, sep = " = ", collapse = ", "), ")")
@@ -120,10 +127,10 @@ shinyServer(function(input, output, session) {
   observeEvent(bs_data(), {
     message("New BehaviorSpace Data")
     expt <- bs_data()
-    experiment$data <- expt$data
-    experiment$ind_vars <- expt$ind_vars
-    experiment$dep_vars <- expt$dep_vars
-    experiment$mapping <- expt$mapping
+    expt_data$data <- expt$data
+    expt_data$ind_vars <- expt$ind_vars
+    expt_data$dep_vars <- expt$dep_vars
+    expt_data$mapping <- expt$mapping
     message("Experiment initialized")
 
     updateSelectInput(session, "ren_from", "", selected = "")
@@ -176,7 +183,7 @@ shinyServer(function(input, output, session) {
 
   observeEvent(input$rename, {
     message("Rename")
-    mapping <- experiment$mapping
+    mapping <- expt_data$mapping
     ren_from <- input$ren_from
     ren_to <- input$ren_to
     vars <- expt_vars()
@@ -192,12 +199,12 @@ shinyServer(function(input, output, session) {
     if (! ren_from  %in% rvars) ren_from <- ''
     updateSelectInput(session, "ren_from", choices = rvars, selected = ren_from)
     updateTextInput(session, "ren_to", value = "")
-    experiment$mapping <- mapping
+    expt_data$mapping <- mapping
   })
 
   plot_data <- reactive({
     message("plot_data")
-    data <-  analyzeBehaviorspace::get_plot_data(experiment, input$x_var,
+    data <-  analyzeBehaviorspace::get_plot_data(experiment(), input$x_var,
                                                  input$y_var, input$group_var,
                                                  input$last_tick)
     data
@@ -205,7 +212,7 @@ shinyServer(function(input, output, session) {
 
   plot_mapping <- reactive({
     message("plot_mapping")
-    plt_map <- analyzeBehaviorspace::get_plot_mapping(experiment, plot_data(),
+    plt_map <- analyzeBehaviorspace::get_plot_mapping(experiment(), plot_data(),
                                                       input$x_var, input$y_var,
                                                       input$group_var,
                                                       input$error_bars)
@@ -214,9 +221,9 @@ shinyServer(function(input, output, session) {
 
   makeplot <- reactive({
     message("makeplot")
-    p <- analyzeBehaviorspace::make_plot(experiment, input$points, input$lines,
+    p <- analyzeBehaviorspace::make_plot(experiment(), input$points, input$lines,
                                          input$x_var, input$y_var,
-                                         input$group_var, input$err_bars,
+                                         input$group_var, input$error_bars,
                                          input$last_tick)
     message("Done making plot")
     p
@@ -224,20 +231,23 @@ shinyServer(function(input, output, session) {
 
   maketable <- reactive({
     message("making table")
-    if (is.null(experiment$data)) return(NULL)
-    new_names <- experiment$mapping %>% {set_names(.$col, .$name)}
-    expt_data <- plot_data()
-    if((! input$summary_tab) || is.null(expt_data)) {
-      expt_data <- experiment$data
+    tab_data <- expt_data$data
+    if (is.null(tab_data)) return(NULL)
+    new_names <- expt_data$mapping %>% {set_names(.$col, .$name)}
+    if (input$summary_tab) {
+      tab_data <- plot_data()
+    } else {
       if (input$last_tick) {
-        # expt_data <- expt_data %>% extract_last_tick(experiment$ind_vars)
-        expt_data <- expt_data %>% extract_last_tick()
+        # expt_data <- expt_data %>% extract_last_tick(expt_data$ind_vars)
+        tab_data <- tab_data %>% extract_last_tick()
       }
     }
     new_names <- new_names %>% keep(~.x %in% names(expt_data)) %>% syms()
-    expt_data <- expt_data %>% rename(!!!new_names)
+    if (length(new_names) > 0) {
+      tab_data <- tab_data %>% rename(!!!new_names)
+    }
     message("done making table")
-    return(expt_data)
+    return(tab_data)
   })
 
   output$plot <- renderPlotly({
@@ -265,7 +275,7 @@ shinyServer(function(input, output, session) {
 
   output$save_plot <- downloadHandler(
     filename <- function() {
-      mapping <- experiment$mapping
+      mapping <- expt_data$mapping
       if (is.null(mapping) || is.null(plot_data())) return()
       fname <- get_filename()
       suffix <- paste0('_', tx_col(input$x_var, mapping),
@@ -294,7 +304,7 @@ shinyServer(function(input, output, session) {
 
   output$save_table <- downloadHandler(
     filename = function() {
-      if (is.null(experiment$data)) return()
+      if (is.null(expt_data$data)) return()
       if (input$summary_tab) {
         suffix <- 'summary'
       } else {
