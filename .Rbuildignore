@@ -11,3 +11,4 @@
 ^inst/abs_app/texts/test_abs-current/.*$
 ^doc$
 ^Meta$
+^\.github$
