@@ -1,4 +1,13 @@
-app <- ShinyDriver$new("../../")
+timeout <-  5
+env_timeout <- Sys.getenv("_PHANTOM_JS_TIMEOUT_") %>% str_trim()
+if (env_timeout != "") {
+  if (str_detect(env_timeout, "^[0-9]+$")) {
+    timeout <- as.numeric(env_timeout)
+    message("Timeout = ", timeout)
+  }
+}
+app <- ShinyDriver$new("../../", loadTimeout = timeout * 1000,
+                       phantomTimeout = timeout * 1000)
 app$snapshotInit("test_abs")
 
 app$snapshot()
