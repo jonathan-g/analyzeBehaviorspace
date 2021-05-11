@@ -37,6 +37,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
         with:
           r-version: ${{ matrix.config.r }}
+
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -44,6 +45,7 @@ jobs:
           writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell:
           Rscript {0}
+
       - name: Cache R packages
         if: runner.os != 'Windows'
         uses: actions/cache@v1
@@ -51,6 +53,7 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
       - name: Install system dependencies
         if: runner.os == 'Linux'
         env:
@@ -59,26 +62,31 @@ jobs:
           Rscript -e "remotes::install_github('r-hub/sysreqs')"
           sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
           sudo -s eval "$sysreqs"
+
       - name: Install dependencies
         run: |
           install.packages('rcmdcheck')
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
+
       - name: Find PhantomJS path
         id: phantomjs
         run: |
           echo "::set-output name=path::$(Rscript -e 'cat(shinytest:::phantom_paths()[[1]])')"
+
       - name: Cache PhantomJS
         uses: actions/cache@v1
         with:
           path: ${{ steps.phantomjs.outputs.path }}
           key: ${{ runner.os }}-phantomjs
           restore-keys: ${{ runner.os }}-phantomjs
+
       - name: Install PhantomJS
         run: |
           options(install.packages.check.source = "no")
           if (!shinytest::dependenciesInstalled()) shinytest::installDependencies()
         shell: Rscript {0}
+
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
@@ -86,6 +94,7 @@ jobs:
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = c("--as-cran", "--no-manual"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
+
       - name: Upload test results
         if: failure()
         uses: actions/upload-artifact@master
