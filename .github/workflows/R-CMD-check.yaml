@@ -35,7 +35,7 @@ jobs:
           pandoc-version: '2.7.3'
       - uses: r-lib/actions/setup-r@v1
         with:
-          r_version: ${{ matrix.config.r }}
+          r-version: ${{ matrix.config.r }}
       - name: Query dependencies
         run: |
           install.packages('remotes')
@@ -83,3 +83,9 @@ jobs:
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: ${{ runner.os }}-r${{ matrix.config.r }}-tests
+          path: tests
