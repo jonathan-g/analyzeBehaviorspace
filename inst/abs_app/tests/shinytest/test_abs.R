@@ -17,10 +17,11 @@ app$uploadFile(file1 = "../../../test_data/butterfly_small-experiment-table.csv"
 app$snapshot()
 
 app$setInputs(last_tick = TRUE)
-app$setInputs(x_var = "corridor_width", wait_ = FALSE, values_ = FALSE)
-app$setInputs(y_var = "mean_elevation_of_turtles", wait_ = FALSE,
-              values_ = FALSE)
-app$setInputs(group_var = "q", wait_ = FALSE, values_ = FALSE)
+app$setInputs(x_var = "corridor_width", wait_ = TRUE, values_ = TRUE)
+app$setInputs(y_var = "mean_elevation_of_turtles", wait_ = TRUE,
+              values_ = TRUE, timeout_ = timeout)
+app$setInputs(group_var = "q", wait_ = TRUE, values_ = TRUE,
+              timeout_ = timeout)
 app$setInputs(lines = TRUE, wait_ = FALSE, values_ = FALSE)
 app$setInputs(points = TRUE, wait_ = FALSE, values_ = FALSE)
 app$setInputs(error_bars = "none", wait_ = TRUE, values_ = TRUE,
