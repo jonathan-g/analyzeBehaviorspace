@@ -12,3 +12,5 @@
 ^doc$
 ^Meta$
 ^\.github$
+.gitkeep$
+^/inst/abs_app/tests/shinytest/test_abs_current$
