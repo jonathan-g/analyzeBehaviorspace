@@ -5,4 +5,4 @@ library(analyzeBehaviorspace)
 # message("appdir = ", appdir, ". Contents = [",
 #         paste(list.files(appdir), collapse = ", "), "]")
 
-test_check("analyzeBehaviorspace")
+test_check("analyzeBehaviorspace", reporter = "summary")

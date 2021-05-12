@@ -1,7 +1,5 @@
-library(magrittr)
-library(stringr)
 timeout <-  5
-env_timeout <- Sys.getenv("_SHINY_APP_LOAD_TIMEOUT_") %>% stringr::str_trim()
+env_timeout <- stringr::str_trim(Sys.getenv("_SHINY_APP_LOAD_TIMEOUT_"))
 if (env_timeout != "") {
   if (stringr::str_detect(env_timeout, "^[0-9]+$")) {
     timeout <- as.numeric(env_timeout)
