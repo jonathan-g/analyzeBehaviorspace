@@ -27,16 +27,17 @@ app$setInputs(error_bars = "none", wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
 app$snapshot()
 
-app$setInputs(ren_from = "corridor_width", wait_ = FALSE, values_ = FALSE)
-app$setInputs(ren_to = "corridor width", wait_ = FALSE, values_ = FALSE)
+app$setInputs(ren_from = "corridor_width", wait_ = TRUE, values_ = TRUE)
+app$setInputs(ren_to = "corridor width", wait_ = TRUE, values_ = TRUE)
 app$setInputs(rename = "click", wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
-app$setInputs(ren_from = "mean_elevation_of_turtles", wait_ = FALSE,
-              values_ = FALSE)
-app$setInputs(ren_to = "elevation", wait_ = FALSE, values_ = FALSE)
+app$setInputs(ren_from = "mean_elevation_of_turtles", wait_ = TRUE,
+              values_ = TRUE)
+app$setInputs(ren_to = "elevation", wait_ = TRUE, values_ = TRUE)
 app$setInputs(rename = "click", wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
 app$setInputs(group_var = "q", wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
-app$setInputs(summary_tab = TRUE, wait_ = TRUE, values_ = TRUE)
+app$setInputs(summary_tab = TRUE, wait_ = TRUE, values_ = TRUE,
+              timeout_ = timeout)
 app$snapshot()
