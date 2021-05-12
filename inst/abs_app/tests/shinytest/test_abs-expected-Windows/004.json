@@ -29,7 +29,7 @@
         "0.csv"
       ]
     },
-    "group_var": "",
+    "group_var": "q",
     "last_tick": true,
     "lines": true,
     "plotly_afterplot-A": "\"plot\"",

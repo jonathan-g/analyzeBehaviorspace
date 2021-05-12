@@ -1,5 +1,19 @@
 {
   "input": {
+    ".clientValue-default-plotlyCrosstalkOpts": {
+      "on": "plotly_click",
+      "persistent": false,
+      "dynamic": false,
+      "selectize": false,
+      "opacityDim": 0.2,
+      "selected": {
+        "opacity": 1
+      },
+      "debounce": 0,
+      "color": [
+
+      ]
+    },
     "error_bars": "none",
     "file1": {
       "name": [
@@ -18,6 +32,7 @@
     "group_var": "",
     "last_tick": true,
     "lines": true,
+    "plotly_afterplot-A": "\"plot\"",
     "points": true,
     "quit_button": 0,
     "ren_from": "",
