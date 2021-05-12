@@ -1,8 +1,7 @@
-image: rocker/shiny-verse:4.0.5
+image: jgilligan/jg-shiny-verse:4.0.5
 
 test:
   script:
-    - sudo apt install qpdf
     - R -e "sessionInfo()"
     - "Rscript -e \"deps <- remotes::dev_package_deps(dependencies = NA); needs <- deps[,'package']; remotes::install_deps(dependencies = TRUE); ip <- as.data.frame(installed.packages()); got <- ip[,'Package']; message('deps = ', paste(class(deps), collapse = ', '), '; ip = ', paste(class(ip), collapse = ', '), '; needs = ', paste(class(needs), collapse = ', '), '; got = ', paste(class(got), collapse = ', ')); if (! all(needs %in% got)) { message('missing: ', paste(setdiff(needs, got), collapse = ', ')); quit(save = 'n', status = 1)};\""
     - R CMD build . --no-manual
