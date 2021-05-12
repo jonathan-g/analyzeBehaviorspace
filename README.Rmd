@@ -1,7 +1,7 @@
 ---
 output:
-    md_document:
-        variant: markdown_github
+  md_document:
+    variant: markdown_github
 ---
 ```{r, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(
@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
 # analyzeBehaviorspace
 
 <!-- badges: start -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/jonathan-g/analyzeBehaviorspace/workflows/R-CMD-check/badge.svg)](https://github.com/jonathan-g/analyzeBehaviorspace/actions)
 <!-- badges: end -->
 

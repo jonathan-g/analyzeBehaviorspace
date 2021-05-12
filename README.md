@@ -2,6 +2,10 @@
 
 <!-- badges: start -->
 
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/jonathan-g/analyzeBehaviorspace/workflows/R-CMD-check/badge.svg)](https://github.com/jonathan-g/analyzeBehaviorspace/actions)
 <!-- badges: end -->
 
