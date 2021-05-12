@@ -1,7 +1,7 @@
 timeout <-  5
 env_timeout <- Sys.getenv("_PHANTOM_JS_TIMEOUT_") %>% stringr::str_trim()
 if (env_timeout != "") {
-  if (str_detect(env_timeout, "^[0-9]+$")) {
+  if (stringr::str_detect(env_timeout, "^[0-9]+$")) {
     timeout <- as.numeric(env_timeout)
     message("Timeout = ", timeout)
   }
