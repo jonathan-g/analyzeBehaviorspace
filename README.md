@@ -1,5 +1,10 @@
 # analyzeBehaviorspace
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/jonathan-g/analyzeBehaviorspace/workflows/R-CMD-check/badge.svg)](https://github.com/jonathan-g/analyzeBehaviorspace/actions)
+<!-- badges: end -->
+
 This is a shiny app to analyze table output from NetLogo BehaviorSpace
 experiments.
 
