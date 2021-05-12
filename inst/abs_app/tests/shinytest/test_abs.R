@@ -1,3 +1,5 @@
+library(magrittr)
+library(stringr)
 timeout <-  5
 env_timeout <- Sys.getenv("_SHINY_APP_LOAD_TIMEOUT_") %>% stringr::str_trim()
 if (env_timeout != "") {
@@ -25,6 +27,7 @@ app$setInputs(lines = TRUE, wait_ = FALSE, values_ = FALSE)
 app$setInputs(points = TRUE, wait_ = FALSE, values_ = FALSE)
 app$setInputs(error_bars = "none", wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
+app$waitForShiny()
 app$snapshot()
 
 app$setInputs(ren_from = "corridor_width", wait_ = TRUE, values_ = TRUE)
@@ -40,4 +43,5 @@ app$setInputs(group_var = "q", wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
 app$setInputs(summary_tab = TRUE, wait_ = TRUE, values_ = TRUE,
               timeout_ = timeout)
+app$waitForShiny()
 app$snapshot()
