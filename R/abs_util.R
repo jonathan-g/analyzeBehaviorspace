@@ -172,7 +172,8 @@ get_group_vars <- function(experiment, x_var, y_var){
   vars <- get_expt_vars(experiment)
   ind_vars <- experiment$ind_vars
   if (any(is.null(vars), is.null(y_var), is.null(ind_vars))) return(NULL)
-  vars <- vars %>% dplyr::filter(.data$col != y_var, .data$col %in% ind_vars)
+  vars <- vars %>% dplyr::filter(! .data$col %in% c(x_var, y_var),
+                                 .data$col %in% ind_vars)
   message("expt_group_ vars = (",
           stringr::str_c(vars$name, vars$col, sep = " = ",  collapse = ", "),
           ")")

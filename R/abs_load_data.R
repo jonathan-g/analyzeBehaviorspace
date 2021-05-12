@@ -128,25 +128,28 @@ process_bs_data <- function(d, quiet = TRUE) {
     message("Names = (", str_c(names(d), collapse = ", "), ")")
   }
 
-  num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
-  factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
+  num_vars <- d %>% keep(is.numeric) %>% names()
+  lgl_vars <- d %>% keep(is.logical) %>% names()
+  factor_vars <- d %>% discard(~is.numeric(.x) | is.logical(.x)) %>% names()
 
   if (!quiet) {
     message("numeric columns = ", paste(num_vars, collapse = ", "))
+    message("logical columns = ", paste(lgl_vars, collapse = ", "))
     message("factor columns = ", paste(factor_vars, collapse = ", "))
   }
 
-  f <- function(x) { ! is.numeric(x)}
   if (length(factor_vars) > 0) {
-    d <- d %>% mutate_if(f, funs(factor(.data$.)))
+    d <- d %>% mutate(across(all_of(factor_vars), factor))
   }
   d <- d %>% arrange(.data$run, .data$tick)
   names(d) <- str_replace_all(names(d), '\\.+','.')
-  num_vars <- d %>% map_lgl(is.numeric) %>% keep(~.x) %>% names()
-  factor_vars <- d %>% map_lgl(is.numeric) %>% discard(~.x) %>% names()
+  num_vars <- d %>% keep(is.numeric) %>% names()
+  lgl_vars <- d %>% keep(is.logical) %>% names()
+  factor_vars <- d %>% discard(~is.numeric(.x) | is.logical(.x)) %>% names()
 
   if (!quiet) {
     message("numeric columns = ", paste(num_vars, collapse = ", "))
+    message("logical columns = ", paste(lgl_vars, collapse = ", "))
     message("factor columns = ", paste(factor_vars, collapse = ", "))
   }
 
