@@ -3,7 +3,7 @@ test_that("analyzeBehaviorspace works", {
   skip_on_cran()
 
   # appdir <- system.file("abs_app", package="analyzeBehaviorspace")
-  appdir <- "../../inst/abs_app"
+  appdir <- "inst/abs_app"
   message("appdir = ", appdir)
   expect_true(dir.exists(appdir))
   if (require(shinytest)) {
