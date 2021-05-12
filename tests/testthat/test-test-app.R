@@ -5,6 +5,9 @@ test_that("analyzeBehaviorspace works", {
   appdir <- system.file("abs_app", package="analyzeBehaviorspace")
   expect_true(dir.exists(!!appdir))
   if (require(shinytest)) {
-    expect_pass(testApp(appdir, compareImages = FALSE, interactive = FALSE))
+    expect_pass(testApp(
+      appdir, compareImages = FALSE, interactive = FALSE,
+      suffix = stringr::str_split(utils::osVersion, " ")[[1]][1]
+    ))
   }
 })
