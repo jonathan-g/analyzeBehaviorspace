@@ -19,7 +19,7 @@
 #'   to launch the app in the user's default web browser rather than RStudio's
 #'   pop-up Viewer. Users can change the default to `TRUE` by setting the
 #'   global option `options(shinystan.rstudio = TRUE)`.
-#' @param ... Optional arguments passed to `\link[shiny]{runApp`}.
+#' @param ... Optional arguments passed to [shiny::runApp()].
 #'
 #' @return Nothing is returned
 #'

@@ -8,7 +8,7 @@ get_plot_mapping(experiment, plot_data, x_var, y_var, group_var, error_bars)
 }
 \arguments{
 \item{experiment}{A BehaviorSpace experiment object, as returned from
-\code{\link[=load_bs_file]{load_bs_file()}}, \code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_experiment]{load_bs_experiment()}}.}
+\code{\link[=load_bs_file]{load_bs_file()}}, \code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_spreadsheet]{load_bs_spreadsheet()}}.}
 
 \item{plot_data}{Plot data returned from \code{\link[=get_plot_data]{get_plot_data()}}.}
 

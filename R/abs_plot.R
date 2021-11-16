@@ -98,7 +98,7 @@ get_plot_data <- function(experiment, x_var, y_var, group_var, last_tick){
 #' Optionally, include a mapping for error bars or an error ribbon.
 #'
 #' @param experiment A BehaviorSpace experiment object, as returned from
-#'  [load_bs_file()], [load_bs_table()], or [load_bs_experiment()].
+#'  [load_bs_file()], [load_bs_table()], or [load_bs_spreadsheet()].
 #' @param plot_data Plot data returned from [get_plot_data()].
 #' @param x_var The name of an x-variable for the plot.
 #' @param y_var The name of an x-variable for the plot.
@@ -155,7 +155,7 @@ get_plot_mapping <- function(experiment, plot_data, x_var, y_var, group_var,
 #' the last tick of each run.
 #'
 #' @param experiment A BehaviorSpace experiment object, as returned from
-#'  [load_bs_file()], [load_bs_table()], or [load_bs_experiment()].
+#'  [load_bs_file()], [load_bs_table()], or [load_bs_spreadsheet()].
 #' @param points Logical: plot points.
 #' @param lines Logical: plot lines.
 #' @param x_var The name of the x-variable.

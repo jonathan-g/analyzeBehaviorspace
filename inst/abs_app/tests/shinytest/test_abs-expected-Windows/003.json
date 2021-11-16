@@ -615,29 +615,15 @@
               "family": "",
               "size": 21.2536322125363
             },
-            "y": 0.858267716535433
-          },
-          "annotations": [
-            {
+            "title": {
               "text": "q",
-              "x": 1.02,
-              "y": 1,
-              "showarrow": false,
-              "ax": 0,
-              "ay": 0,
               "font": {
                 "color": "rgba(0,0,0,1)",
                 "family": "",
                 "size": 26.5670402656704
-              },
-              "xref": "paper",
-              "yref": "paper",
-              "textangle": 0,
-              "xanchor": "left",
-              "yanchor": "bottom",
-              "legendTitle": true
+              }
             }
-          ],
+          },
           "hovermode": "closest",
           "width": 631,
           "height": 400,
@@ -645,6 +631,10 @@
         },
         "config": {
           "doubleClick": "reset",
+          "modeBarButtonsToAdd": [
+            "hoverclosest",
+            "hovercompare"
+          ],
           "showSendToCloud": false
         },
         "source": "A",
@@ -722,22 +712,22 @@
         },
         {
           "name": "crosstalk",
-          "version": "1.1.1",
+          "version": "1.2.0",
           "src": {
-            "href": "crosstalk-1.1.1"
+            "href": "crosstalk-1.2.0"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
-          "stylesheet": "css/crosstalk.css",
+          "stylesheet": "css/crosstalk.min.css",
           "head": null,
           "attachment": null,
           "all_files": true
         },
         {
           "name": "plotly-htmlwidgets-css",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-htmlwidgets-css-1.57.1"
+            "href": "plotly-htmlwidgets-css-2.5.1"
           },
           "meta": null,
           "script": null,
@@ -748,9 +738,9 @@
         },
         {
           "name": "plotly-main",
-          "version": "1.57.1",
+          "version": "2.5.1",
           "src": {
-            "href": "plotly-main-1.57.1"
+            "href": "plotly-main-2.5.1"
           },
           "meta": null,
           "script": "plotly-latest.min.js",
@@ -764,6 +754,7 @@
     "table": {
       "x": {
         "filter": "none",
+        "vertical": false,
         "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>run<\/th>\n      <th>real_terrain<\/th>\n      <th>q<\/th>\n      <th>tick<\/th>\n      <th>corridor_width<\/th>\n      <th>mean_elevation_of_turtles<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
           "lengthChange": false,
@@ -811,6 +802,19 @@
       ],
       "deps": [
         {
+          "name": "jquery",
+          "version": "3.6.0",
+          "src": {
+            "href": "jquery-3.6.0"
+          },
+          "meta": null,
+          "script": "jquery-3.6.0.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
           "name": "dt-core",
           "version": "1.10.20",
           "src": {
@@ -828,27 +832,14 @@
           "all_files": false
         },
         {
-          "name": "jquery",
-          "version": "3.5.1",
-          "src": {
-            "href": "jquery-3.5.1"
-          },
-          "meta": null,
-          "script": "jquery.min.js",
-          "stylesheet": null,
-          "head": null,
-          "attachment": null,
-          "all_files": true
-        },
-        {
           "name": "crosstalk",
-          "version": "1.1.1",
+          "version": "1.2.0",
           "src": {
-            "href": "crosstalk-1.1.1"
+            "href": "crosstalk-1.2.0"
           },
           "meta": null,
           "script": "js/crosstalk.min.js",
-          "stylesheet": "css/crosstalk.css",
+          "stylesheet": "css/crosstalk.min.css",
           "head": null,
           "attachment": null,
           "all_files": true

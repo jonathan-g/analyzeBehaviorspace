@@ -12,7 +12,7 @@ to launch the app in the user's default web browser rather than RStudio's
 pop-up Viewer. Users can change the default to \code{TRUE} by setting the
 global option \code{options(shinystan.rstudio = TRUE)}.}
 
-\item{...}{Optional arguments passed to \verb{\link[shiny]\{runApp}}.}
+\item{...}{Optional arguments passed to \code{\link[shiny:runApp]{shiny::runApp()}}.}
 }
 \value{
 Nothing is returned

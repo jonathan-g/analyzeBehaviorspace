@@ -17,7 +17,7 @@ make_plot(
 }
 \arguments{
 \item{experiment}{A BehaviorSpace experiment object, as returned from
-\code{\link[=load_bs_file]{load_bs_file()}}, \code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_experiment]{load_bs_experiment()}}.}
+\code{\link[=load_bs_file]{load_bs_file()}}, \code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_spreadsheet]{load_bs_spreadsheet()}}.}
 
 \item{points}{Logical: plot points.}
 
