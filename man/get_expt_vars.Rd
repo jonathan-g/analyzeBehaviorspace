@@ -7,12 +7,12 @@
 get_expt_vars(experiment)
 }
 \arguments{
-\item{experiment}{An experiment object, returned by [load_bs_file()],
-[load_bs_table()], or [load_bs_spreadsheet()].}
+\item{experiment}{An experiment object, returned by \code{\link[=load_bs_file]{load_bs_file()}},
+\code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_spreadsheet]{load_bs_spreadsheet()}}.}
 }
 \value{
 A data frame with the names of the variables and the corresponding
-  columns in the experiment data frame.
+columns in the experiment data frame.
 }
 \description{
 Get the variables from a BehaviorSpace experiment.

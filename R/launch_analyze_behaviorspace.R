@@ -15,11 +15,11 @@
 #' users also have the option of launching the app in RStudio's pop-up Viewer.
 #'
 #' @export
-#' @param rstudio Only relevant for RStudio users. The default (\code{FALSE}) is
+#' @param rstudio Only relevant for RStudio users. The default (`FALSE`) is
 #'   to launch the app in the user's default web browser rather than RStudio's
-#'   pop-up Viewer. Users can change the default to \code{TRUE} by setting the
-#'   global option \code{options(shinystan.rstudio = TRUE)}.
-#' @param ... Optional arguments passed to \code{\link[shiny]{runApp}}.
+#'   pop-up Viewer. Users can change the default to `TRUE` by setting the
+#'   global option `options(shinystan.rstudio = TRUE)`.
+#' @param ... Optional arguments passed to `\link[shiny]{runApp`}.
 #'
 #' @return Nothing is returned
 #'

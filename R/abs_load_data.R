@@ -6,6 +6,77 @@ library(stringr)
 library(janitor)
 
 
+#' Load output from a NetLogo BehaviorSpace experiment
+#'
+#' Loads the output from a NetLogo BehaviorSpace zexperiment.
+#'
+#' This function loads and decodes table output from a NetLogo BehaviorSpace
+#' experiment. It can take either a filename or the text contents of such a
+#' file.
+#'
+#' @param filename The name of a BehaviorSpace table output file (`.csv`
+#'   format).
+#' @param text Text contents of a BehaviorSpace table output file (`.csv`
+#'   format).
+#' @param quiet Logical value indicating whether to run quietly or report
+#'   progress messages.
+#' @return A named list with elements:
+#' * `data`: a data frame containing the experiment data.
+#' * `ind_vars`: a character vector with the names of the independent
+#'   variables.
+#' * `dep_vars`: a character vector with the names of the dependent
+#'   variables.
+#' * `mapping`: a data frame mapping columns in `data` to variable
+#'   names. By default, this just maps column names to themselves.
+#' * `success`: A logical variable indicating success or failure.
+#' * `cause`: A character variable indicating the cause of failure.
+#' @examples
+#' \dontrun{
+#'   load_bs_file(
+#'     system.file("test_data/butterfly_small-experiment-table.csv",
+#'       "analyzeBehaviorspace", mustWork = TRUE)
+#'     )
+#' }
+#'
+#' @export
+#'
+load_bs_file <- function(filename = NULL, text = NULL, quiet = TRUE) {
+  if (! (missing(filename) || is.null(filename) || is.na(filename))) {
+    text <- read_file(filename)
+  }
+  ret_fail <- list(data = NULL, ind_vars = NULL, dep_vars = NULL,
+                   mapping = NULL, success = FALSE,
+                   cause = character(0))
+
+  text_lines <- text %>%  str_split('\n') %>% simplify()
+
+  if (! quiet) {
+    message("File length = ", str_length(text), ": Split into ",
+            length(text_lines), " lines.")
+  }
+
+  skip_lines <- which(str_detect(text_lines, '^"?\\[run number\\]"?'))
+  if (length(skip_lines) == 0) {
+    ret_fail$cause = "not_bs"
+
+    return(ret_fail)
+  }
+
+  skip_lines = skip_lines[1] - 1
+
+  if (!quiet) {
+    message("Skip lines = ", skip_lines)
+  }
+
+  if (is_bs_table(text, skip_lines)) {
+    message("Loading BehaviorSpace Table")
+    return(load_bs_table(text = text, quiet = quiet)) # nolint
+  } else {
+    message("Loading BehaviorSpace Spreadsheet")
+    return(load_bs_spreadsheet(text = text, quiet = quiet)) # nolint
+  }
+}
+
 #' Determine whether a csv file is a BehaviorSpace experiment table
 #'
 #' Given the text from a .csv file, determine whether it corresponds to a
@@ -56,7 +127,7 @@ classify_vars <- function(df) {
 }
 
 
-#' @describeIn load_bs_file Load a BehaviorSpace experiment in spreadsheet
+#' @describeIn load_bs_file Load a BehaviorSpace experiment in table
 #'   format.
 #'
 #' @export
@@ -117,10 +188,31 @@ load_bs_table <- function(filename = NULL, text = NULL, quiet = TRUE) {
   invisible(ret)
 }
 
-#' @describeIn load_bs_file Load a BehaviorSpace experiment in table format.
+#' Process data from a BehaviorSpace `.csv` file.
+#'
+#' `process_bs_data()` takes a data frame read from a `.csv` file with
+#' BehaviorSpace output and organizes it into an R representation of
+#' a BehaviorSpace experiment.
+#'
+#' This function is generally not run by the user, but is called internally
+#' by [load_bs_file()], [load_bs_table()], or [load_bs_spreadsheet()].
 #'
 #' @param d A data frame read from a BehaviorSpace .csv file.
+#' @param quiet Suppress informational messages.
 #'
+#' @param quiet Logical value indicating whether to run quietly or report
+#'   progress messages.
+#' @return A named list with elements:
+#' * `data`: a data frame containing the experiment data.
+#' * `ind_vars`: a character vector with the names of the independent
+#'   variables.
+#' * `dep_vars`: a character vector with the names of the dependent
+#'   variables.
+#' * `mapping`: a data frame mapping columns in `data` to variable
+#'   names. By default, this just maps column names to themselves.
+#' * `success`: A logical variable indicating success or failure.
+#' * `cause`: A character variable indicating the cause of failure.
+#' @seealso [load_bs_file()], [load_bs_table()], and [load_bs_spreadsheet()].
 #' @export
 #'
 process_bs_data <- function(d, quiet = TRUE) {
@@ -233,74 +325,3 @@ load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
   invisible(ret)
 }
 
-#' Load output from a NetLogo BehaviorSpace experiment
-#'
-#' \code{load_bs_table} loads the table output from a NetLogo BehaviorSpace
-#' experiment.
-#'
-#' This function loads and decodes table output from a NetLogo BehaviorSpace
-#' experiment. It can take either a filename or the text contents of such a
-#' file.
-#'
-#' @param filename The name of a BehaviorSpace table output file (\code{.csv}
-#'   format).
-#' @param text Text contents of a BehaviorSpace table output file (\code{.csv}
-#'   format).
-#' @param quiet Logical value indicating whether to run quietly or report
-#'   progress messages.
-#' @return A named list with elements:
-#' * \code{data}: a data frame containing the experiment data.
-#' * \code{ind_vars}: a character vector with the names of the independent
-#'   variables.
-#' * \code{dep_vars}: a character vector with the names of the dependent
-#'   variables.
-#' * \code{mapping}: a data frame mapping columns in \code{data} to variable
-#'   names. By default, this just maps column names to themselves.
-#' * \code{success}: A logical variable indicating success or failure.
-#' * \code{cause}: A character variable indicating the cause of failure.
-#' @examples
-#' \dontrun{
-#'   load_bs_table(
-#'     system.file("test_data/butterfly_small-experiment-table.csv",
-#'       "analyzeBehaviorspace", mustWork = TRUE)
-#'     )
-#' }
-#'
-#' @export
-#'
-load_bs_file <- function(filename = NULL, text = NULL, quiet = TRUE) {
-  if (! (missing(filename) || is.null(filename) || is.na(filename))) {
-    text <- read_file(filename)
-  }
-  ret_fail <- list(data = NULL, ind_vars = NULL, dep_vars = NULL,
-                   mapping = NULL, success = FALSE,
-                   cause = character(0))
-
-  text_lines <- text %>%  str_split('\n') %>% simplify()
-
-  if (! quiet) {
-    message("File length = ", str_length(text), ": Split into ",
-            length(text_lines), " lines.")
-  }
-
-  skip_lines <- which(str_detect(text_lines, '^"?\\[run number\\]"?'))
-  if (length(skip_lines) == 0) {
-    ret_fail$cause = "not_bs"
-
-    return(ret_fail)
-  }
-
-  skip_lines = skip_lines[1] - 1
-
-  if (!quiet) {
-    message("Skip lines = ", skip_lines)
-  }
-
-  if (is_bs_table(text, skip_lines)) {
-    message("Loading BehaviorSpace Table")
-    return(load_bs_table(text = text, quiet = quiet)) # nolint
-  } else {
-    message("Loading BehaviorSpace Spreadsheet")
-    return(load_bs_spreadsheet(text = text, quiet = quiet)) # nolint
-  }
-}

@@ -14,16 +14,18 @@ variables.}
 
 \item{dep_vars}{A character vector with the names of the dependent variables.}
 
-\item{mapping}{A data frame with a mapping between column names in `data`
+\item{mapping}{A data frame with a mapping between column names in \code{data}
 and a name to use in the Shiny app and for plot axes.}
 }
 \value{
 An experiment object. This is a named list with:
-* `data`: a data frame,
-* `ind_vars`: A character vector with the names of the independent variables.
-* `dep_vars`: A character vector with the names of the dependent variables
-* `mapping`: A data frame with a mapping between column names in `data` and
-  names to use for plot axis labels, in the Shiny app, etc.
+\itemize{
+\item \code{data}: a data frame,
+\item \code{ind_vars}: A character vector with the names of the independent variables.
+\item \code{dep_vars}: A character vector with the names of the dependent variables
+\item \code{mapping}: A data frame with a mapping between column names in \code{data} and
+names to use for plot axis labels, in the Shiny app, etc.
+}
 }
 \description{
 Make a BehaviorSpace experiment object.

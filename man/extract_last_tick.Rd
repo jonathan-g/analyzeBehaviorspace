@@ -11,7 +11,7 @@ extract_last_tick(df)
 }
 \value{
 A data frame with one row for each run, corresponding to the last
- tick for that run.
+tick for that run.
 }
 \description{
 Extract the rows of a data frame with the last tick from each run.

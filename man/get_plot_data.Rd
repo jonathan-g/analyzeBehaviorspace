@@ -7,8 +7,8 @@
 get_plot_data(experiment, x_var, y_var, group_var, last_tick)
 }
 \arguments{
-\item{experiment}{An experiment object, returned by [load_bs_file()],
-[load_bs_table()], or [load_bs_spreadsheet()].}
+\item{experiment}{An experiment object, returned by \code{\link[=load_bs_file]{load_bs_file()}},
+\code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_spreadsheet]{load_bs_spreadsheet()}}.}
 
 \item{x_var}{The name of the independent variable for the x-axis}
 
@@ -20,12 +20,12 @@ get_plot_data(experiment, x_var, y_var, group_var, last_tick)
 ticks).}
 }
 \value{
-A data frame suitable for plotting with `ggplot()`.
+A data frame suitable for plotting with \code{ggplot()}.
 }
 \description{
 From an experiment, extract a data frame suitable for plotting with
-`ggplot()`. Select the relevant columns for plotting, using an x-variable,
-a y-variable, and an optional grouping variable. If `last_tick` is `TRUE`,
+\code{ggplot()}. Select the relevant columns for plotting, using an x-variable,
+a y-variable, and an optional grouping variable. If \code{last_tick} is \code{TRUE},
 then only include data for the last tick of each run. Otherwise, include all
 ticks.
 }

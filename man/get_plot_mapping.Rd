@@ -2,15 +2,15 @@
 % Please edit documentation in R/abs_plot.R
 \name{get_plot_mapping}
 \alias{get_plot_mapping}
-\title{Get an aesthetic mapping suitable for use in `ggplot()`}
+\title{Get an aesthetic mapping suitable for use in \code{ggplot()}}
 \usage{
 get_plot_mapping(experiment, plot_data, x_var, y_var, group_var, error_bars)
 }
 \arguments{
 \item{experiment}{A BehaviorSpace experiment object, as returned from
-[load_bs_file()], [load_bs_table()], or [load_bs_experiment()].}
+\code{\link[=load_bs_file]{load_bs_file()}}, \code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_experiment]{load_bs_experiment()}}.}
 
-\item{plot_data}{Plot data returned from [get_plot_data()].}
+\item{plot_data}{Plot data returned from \code{\link[=get_plot_data]{get_plot_data()}}.}
 
 \item{x_var}{The name of an x-variable for the plot.}
 
@@ -23,10 +23,10 @@ get_plot_mapping(experiment, plot_data, x_var, y_var, group_var, error_bars)
 }
 \value{
 A named list with an aesthetic mapping, A label specification for
- the axes, and a legend specification.
+the axes, and a legend specification.
 }
 \description{
-Create a `ggplot` aesthetic mapping from a BehaviorSpace experiment object,
+Create a \code{ggplot} aesthetic mapping from a BehaviorSpace experiment object,
 based on chosen x-variable, y-variable, and optional grouping variable.
 Optionally, include a mapping for error bars or an error ribbon.
 }

@@ -1,6 +1,6 @@
 Package: analyzeBehaviorspace
-Version: 0.3.0
-Date: 2021-05-12
+Version: 1.0.0
+Date: 2021-11-16
 Type: Package
 Title: Processes NetLogo BehaviorSpace Output
 Authors@R: c(person("Jonathan", "Gilligan", role = c("aut", "cre"),
@@ -31,10 +31,12 @@ Suggests:
     knitr (>= 1.2),
     rmarkdown (>= 1.18)
 License: MIT + file LICENSE
-URL: https://github.com/jonathan-g/analyzeBehaviorspace
+URL: https://github.com/jonathan-g/analyzeBehaviorspace,
+    https://jonathan-g.github.io/analyzeBehaviorspace
 BugReports: https://github.com/jonathan-g/analyzeBehaviorspace/issues
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 VignetteBuilder: knitr
+Roxygen: list(markdown=TRUE)

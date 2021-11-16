@@ -14,3 +14,6 @@
 ^\.github$
 .gitkeep$
 ^/inst/abs_app/tests/shinytest/test_abs_current$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

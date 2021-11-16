@@ -16,6 +16,6 @@ dependent variables.
 \description{
 Classify variables in a BehaviorSpace experiment data frame into
 dependent and independent. This function uses the fact that BehaviorSpace
-puts the independent variable columns before the `[steps]` column, and the
+puts the independent variable columns before the \verb{[steps]} column, and the
 dependent variables after.
 }

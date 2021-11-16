@@ -13,7 +13,7 @@ is_bs_table(text, skip_lines)
 data.}
 }
 \value{
-Logical: `TRUE` means it is in the table format.
+Logical: \code{TRUE} means it is in the table format.
 }
 \description{
 Given the text from a .csv file, determine whether it corresponds to a

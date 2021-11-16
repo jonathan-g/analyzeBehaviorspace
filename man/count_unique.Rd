@@ -12,8 +12,8 @@ count_unique(df, col_names = NULL)
 \item{col_names}{A vector of column names to inspect.}
 }
 \value{
-A named logical vector where `TRUE` means there is more than one
- distinct value in the column.
+A named logical vector where \code{TRUE} means there is more than one
+distinct value in the column.
 }
 \description{
 From a data frame get the columns with more than one distinct value.

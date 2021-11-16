@@ -23,14 +23,14 @@ No-U-Turn sampler).
 \section{License}{
 
 
- The \pkg{analyzeBehaviorspace} package is open source licensed under the
- MIT License.
+The \pkg{analyzeBehaviorspace} package is open source licensed under the
+MIT License.
 }
 
 \section{Bug reports}{
 
 \itemize{
- \item analyzeBehaviorspace issue tracker (\url{https://github.com/jonathan-g/analyzeBehaviorspace/issues})
+\item analyzeBehaviorspace issue tracker (\url{https://github.com/jonathan-g/analyzeBehaviorspace/issues})
 }
 }
 

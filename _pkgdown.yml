@@ -1,0 +1,48 @@
+destination: docs
+url: https://jonathan-g.github.io/analyzeBehaviorspace
+home:
+  title: Processes NetLogo BehaviorSpace Output
+  description: |
+    Reads in table-style output from NetLogo BehaviorSpace experiments,
+    allows the user to do some basic organizing and interactive plotting,
+    and to export charts and summary tables.
+  strip_header: no
+authors:
+  Jonathan Gilligan:
+    href: https://www.jonathangilligan.org
+development:
+  mode: auto
+reference:
+- title: Shiny app
+  desc: Shiny app for interactive analysis of BehaviorSpace experiments
+  contents: launch_abs
+- title: Loading Behaviorspace data
+  desc: Load data from Behaviorspace experiments
+  contents:
+  - load_bs_file
+  - load_bs_spreadsheet
+  - load_bs_table
+- title: Manipulate Behaviorspace data
+  desc: Analyze and manipulate data from BehaviorSpace experiments
+  contents:
+  - classify_vars
+  - extract_last_tick
+  - get_expt_vars
+  - get_group_vars
+  - tx_col
+  - tx_name
+- title: Plot data
+  desc: Plot results from BehaviorSpace experiments
+  contents:
+  - get_plot_data
+  - make_plot
+- title: Internals
+  desc: Utility functions that are not often called directly
+  contents:
+  - count_unique
+  - get_plot_mapping
+  - get_plot_vars
+  - get_yvars
+  - is_bs_table
+  - process_bs_data
+

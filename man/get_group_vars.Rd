@@ -7,8 +7,8 @@
 get_group_vars(experiment, x_var, y_var)
 }
 \arguments{
-\item{experiment}{An experiment object, returned by [load_bs_file()],
-[load_bs_table()], or [load_bs_spreadsheet()].}
+\item{experiment}{An experiment object, returned by \code{\link[=load_bs_file]{load_bs_file()}},
+\code{\link[=load_bs_table]{load_bs_table()}}, or \code{\link[=load_bs_spreadsheet]{load_bs_spreadsheet()}}.}
 
 \item{x_var}{The name of the x-variable to use in the plot.}
 
@@ -16,7 +16,7 @@ get_group_vars(experiment, x_var, y_var)
 }
 \value{
 A data frame with the names of the possible grouping variables
-  and the corresponding columns in the experiment data frame.
+and the corresponding columns in the experiment data frame.
 }
 \description{
 Given x- and y-variables to plot, get a list of the possible variables to
