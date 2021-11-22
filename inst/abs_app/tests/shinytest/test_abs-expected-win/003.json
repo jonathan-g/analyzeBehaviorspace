@@ -35,10 +35,10 @@
     "plotly_afterplot-A": "\"plot\"",
     "points": true,
     "quit_button": 0,
-    "ren_from": "mean_elevation_of_turtles",
+    "ren_from": "",
     "ren_to": "",
-    "rename": 2,
-    "summary_tab": true,
+    "rename": 0,
+    "summary_tab": false,
     "table_cell_clicked": {
 
     },
@@ -112,7 +112,85 @@
     ],
     "table_rows_selected": null,
     "table_search": "",
-    "table_state": null,
+    "table_state": {
+      "time": 1637220851403,
+      "start": 0,
+      "length": 10,
+      "order": [
+
+      ],
+      "search": {
+        "search": "",
+        "smart": true,
+        "regex": false,
+        "caseInsensitive": true
+      },
+      "columns": [
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        },
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        },
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        },
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        },
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        },
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        },
+        {
+          "visible": true,
+          "search": {
+            "search": "",
+            "smart": true,
+            "regex": false,
+            "caseInsensitive": true
+          }
+        }
+      ]
+    },
     "x_var": "corridor_width",
     "y_var": "mean_elevation_of_turtles"
   },
@@ -514,7 +592,7 @@
             "zeroline": false,
             "anchor": "y",
             "title": {
-              "text": "corridor width",
+              "text": "corridor_width",
               "font": {
                 "color": "rgba(0,0,0,1)",
                 "family": "",
@@ -579,7 +657,7 @@
             "zeroline": false,
             "anchor": "x",
             "title": {
-              "text": "elevation",
+              "text": "mean_elevation_of_turtles",
               "font": {
                 "color": "rgba(0,0,0,1)",
                 "family": "",
@@ -755,7 +833,7 @@
       "x": {
         "filter": "none",
         "vertical": false,
-        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>corridor_width<\/th>\n      <th>q<\/th>\n      <th>mean_elevation_of_turtles<\/th>\n      <th>mean_elevation_of_turtles_sd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>run<\/th>\n      <th>real_terrain<\/th>\n      <th>q<\/th>\n      <th>tick<\/th>\n      <th>corridor_width<\/th>\n      <th>mean_elevation_of_turtles<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
           "lengthChange": false,
           "bFilter": false,
@@ -764,9 +842,10 @@
               "className": "dt-right",
               "targets": [
                 1,
-                2,
                 3,
-                4
+                4,
+                5,
+                6
               ]
             },
             {
@@ -815,9 +894,9 @@
         },
         {
           "name": "dt-core",
-          "version": "1.10.20",
+          "version": "1.11.3",
           "src": {
-            "href": "dt-core-1.10.20"
+            "href": "dt-core-1.11.3"
           },
           "meta": null,
           "script": "js/jquery.dataTables.min.js",
