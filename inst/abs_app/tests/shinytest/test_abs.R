@@ -8,6 +8,7 @@ if (env_timeout != "") {
 }
 timeout <- timeout * 1000
 app <- ShinyDriver$new("../../", loadTimeout = timeout,
+                       debug = "all",
                        phantomTimeout = timeout)
 app$snapshotInit("test_abs")
 

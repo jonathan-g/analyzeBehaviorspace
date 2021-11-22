@@ -31,6 +31,9 @@ options(shiny.maxRequestSize = 300 * 1024^2)
 # options(warn = 2)
 
 shinyServer(function(input, output, session) {
+
+  snapshotPreprocessInput("table_state", function(value) {})
+
   cdata <- session$clientData
 
   expt_data <- reactiveValues(
