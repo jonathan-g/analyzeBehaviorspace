@@ -4,9 +4,10 @@ test_that("directories exist", {
   if (require(shinytest)) {
     appdir <- system.file("abs_app", package="analyzeBehaviorspace")
     appdir <- normalizePath(appdir, winslash = "/")
-    message("appdir = ", appdir)
+    # message("appdir = ", appdir)
     os_type <- osName()
-    message("OS version = ", os_type)
+    expect_true(os_type %in% c("win", "linux", "mac"))
+    # message("OS version = ", os_type)
     expect_true(dir.exists(appdir), info = "app dir exists.")
     resdir <- file.path(appdir, "tests", "shinytest",
                         stringr::str_c("test_abs-expected-", os_type))
@@ -22,10 +23,11 @@ test_that("analyzeBehaviorspace works", {
 
   appdir <- system.file("abs_app", package="analyzeBehaviorspace")
   appdir <- normalizePath(appdir, winslash = "/")
-  message("appdir = ", appdir)
+  # message("appdir = ", appdir)
   if (require(shinytest)) {
     os_type <- osName()
-    message("OS version = ", os_type)
+    # message("OS version = ", os_type)
+    expect_true(os_type %in% c("win", "linux", "mac"))
     expect_true(dir.exists(appdir), info = "app dir exists.")
     resdir <- file.path(appdir, "tests", "shinytest",
                         stringr::str_c("test_abs-expected-", os_type))
