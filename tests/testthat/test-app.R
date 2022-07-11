@@ -34,7 +34,7 @@ test_that("analyzeBehaviorspace works", {
     expect_true(
       dir.exists(resdir), info = "expected test results directory exists.")
     expect_pass(
-      testApp(appdir, suffix = os_type, quiet = TRUE,
+      testApp(appdir, suffix = os_type, quiet = FALSE,
               compareImages = FALSE, interactive = FALSE),
       info = "shinytest passes."
     )

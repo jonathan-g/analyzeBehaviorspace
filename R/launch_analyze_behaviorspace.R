@@ -18,7 +18,11 @@
 #' @param rstudio Only relevant for RStudio users. The default (`FALSE`) is
 #'   to launch the app in the user's default web browser rather than RStudio's
 #'   pop-up Viewer. Users can change the default to `TRUE` by setting the
-#'   global option `options(shinystan.rstudio = TRUE)`.
+#'   global option `options(analyze_behaviorspace.rstudio = TRUE)`.
+#' @param maxFileSize The maximum file size that can be uploaded to the shiny
+#'   app (in megabytes). The default can be changed by setting the global option
+#'   `analyze_behaviorspace.maxFileSize`
+#'   (`options(analyze_behaviorspace.maxFileSize = 1000)`).
 #' @param ... Optional arguments passed to [shiny::runApp()].
 #'
 #' @return Nothing is returned
@@ -29,19 +33,36 @@
 #' launch_abs()
 #' }
 #'
-launch_abs <- function(rstudio = getOption("analyze_behaviorspace.rstudio"), ...) {
+launch_abs <- function(rstudio = getOption("analyze_behaviorspace.rstudio",
+                                           default = FALSE),
+                       maxFileSize =
+                         getOption('analyze_behaviorspace.maxFileSize',
+                                               default = 300),
+                       ...) {
   message("\nLaunching analyzeBehaviorspace interface.")
-  invisible(launch(rstudio, ...))
+  invisible(launch(rstudio, maxFileSize, ...))
 }
 
-# Internal launch function
-# @param rstudio launch in rstudio viewer instead of web browser?
-# @param ... passed to shiny::runApp
-launch <- function(rstudio = FALSE, ...) {
-  launch.browser <- if (!rstudio)
-    TRUE else getOption("shiny.launch.browser", interactive())
+#' Internal launch function
+#' @param rstudio launch in rstudio viewer instead of web browser?
+#' @param ... passed to shiny::runApp
+#' @noRd
+#'
+launch <- function(rstudio = FALSE, maxFileSize = NULL, ...) {
+  launch.browser <- {
+    if (!rstudio)
+      TRUE
+    else
+      getOption("shiny.launch.browser", interactive())
+  }
+
+  if (! is.null(maxFileSize)) {
+    mfs = maxFileSize * 1024^2
+    options(shiny.maxRequestSize = mfs,
+            analyze_behaviorspace.maxFileSize = mfs)
+  }
 
   shiny::runApp(system.file("abs_app", package = "analyzeBehaviorspace"),
                 launch.browser = launch.browser, ...)
-  invisible()
+  invisible(NULL)
 }

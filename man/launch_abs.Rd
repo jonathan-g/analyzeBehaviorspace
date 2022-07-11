@@ -4,13 +4,22 @@
 \alias{launch_abs}
 \title{Launch the analyzeBehaviorspace app}
 \usage{
-launch_abs(rstudio = getOption("analyze_behaviorspace.rstudio"), ...)
+launch_abs(
+  rstudio = getOption("analyze_behaviorspace.rstudio", default = FALSE),
+  maxFileSize = getOption("analyze_behaviorspace.maxFileSize", default = 300),
+  ...
+)
 }
 \arguments{
 \item{rstudio}{Only relevant for RStudio users. The default (\code{FALSE}) is
 to launch the app in the user's default web browser rather than RStudio's
 pop-up Viewer. Users can change the default to \code{TRUE} by setting the
-global option \code{options(shinystan.rstudio = TRUE)}.}
+global option \code{options(analyze_behaviorspace.rstudio = TRUE)}.}
+
+\item{maxFileSize}{The maximum file size that can be uploaded to the shiny
+app (in megabytes). The default can be changed by setting the global option
+\code{analyze_behaviorspace.maxFileSize}
+(\code{options(analyze_behaviorspace.maxFileSize = 1000)}).}
 
 \item{...}{Optional arguments passed to \code{\link[shiny:runApp]{shiny::runApp()}}.}
 }
