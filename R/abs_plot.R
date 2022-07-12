@@ -192,10 +192,6 @@ make_plot <- function(experiment, points, lines, x_var, y_var, group_var,
   pm_legend <- p_map$legend
   message("Plotting...")
   p <- ggplot(df, pm_mapping)
-  message("lines = ", lines)
-  if (lines) {
-    p <- p + geom_line()
-  }
   message("sd name = ", sd_name)
   if (sd_name %in% names(df)) {
     message("error bars = ", error_bars)
@@ -209,6 +205,10 @@ make_plot <- function(experiment, points, lines, x_var, y_var, group_var,
   if (points) {
     message("points")
     p <- p + geom_point()
+  }
+  message("lines = ", lines)
+  if (lines) {
+    p <- p + geom_line()
   }
   if (! is.null(pm_legend)) {
     message("legend")
