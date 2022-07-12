@@ -2,7 +2,8 @@ library(shinytest2)
 
 test_that("{shinytest2} recording: Butterfly Corridor", {
   app <- AppDriver$new(variant = platform_variant(), name = "Butterfly Corridor",
-      seed = 12345678, height = 1009, width = 1167)
+      seed = 12345678, height = 1009, width = 1167,
+      wait = TRUE)
   app$upload_file(file1 = "test_data/butterfly_small-experiment-table.csv")
   app$expect_values()
   app$set_inputs(ren_from = "corridor_width")

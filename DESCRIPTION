@@ -28,6 +28,7 @@ Imports:
 Suggests: 
     testthat (>= 2.3),
     shinytest2 (>= 0.1),
+    shinyvalidate (>= 0.1.2),
     knitr (>= 1.2),
     rmarkdown (>= 1.18)
 License: MIT + file LICENSE
