@@ -20,9 +20,9 @@
     "lines": false,
     "points": true,
     "quit_button": 0,
-    "ren_from": "",
+    "ren_from": "corridor_width",
     "ren_to": "",
-    "rename": 0,
+    "rename": 1,
     "summary_tab": false,
     "table_cell_clicked": {
 

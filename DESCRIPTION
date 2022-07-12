@@ -27,7 +27,7 @@ Imports:
     plotly (>= 4.9)
 Suggests: 
     testthat (>= 2.3),
-    shinytest (>= 1.5),
+    shinytest2 (>= 0.1),
     knitr (>= 1.2),
     rmarkdown (>= 1.18)
 License: MIT + file LICENSE
