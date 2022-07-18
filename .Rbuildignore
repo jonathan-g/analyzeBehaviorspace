@@ -15,8 +15,8 @@
 ^\.github$
 .gitkeep$
 ^inst/abs_app/tests/.*/_*\.new\.png$
-^inst/abs_app/tests/testthat/test-shinytest2-full.R$
-^inst/abs_app/tests/testthat/_snaps/.*/shinytest2-full/.*$
+^inst/abs_app/tests/testthat/test-st2-full.R$
+^inst/abs_app/tests/testthat/_snaps/[^/]+/st2-full/.*$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
