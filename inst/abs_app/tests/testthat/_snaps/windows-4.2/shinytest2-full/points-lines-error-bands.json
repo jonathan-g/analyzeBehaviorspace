@@ -14,7 +14,7 @@
 
       ]
     },
-    "error_bars": "none",
+    "error_bars": "bands",
     "file1": {
       "name": [
         "butterfly_small-experiment-table.csv"
@@ -31,14 +31,14 @@
     },
     "group_var": "",
     "last_tick": false,
-    "lines": false,
+    "lines": true,
     "plotly_afterplot-A": "\"plot\"",
     "points": true,
     "quit_button": 0,
     "ren_from": "mean_elevation_of_turtles",
     "ren_to": "",
     "rename": 2,
-    "summary_tab": true,
+    "summary_tab": false,
     "table_cell_clicked": {
 
     },
@@ -190,8 +190,8 @@
         }
       ]
     },
-    "x_var": "corridor_width",
-    "y_var": "mean_elevation_of_turtles"
+    "x_var": "q",
+    "y_var": "corridor_width"
   },
   "output": {
     "plot": {
@@ -199,163 +199,87 @@
         "data": [
           {
             "x": [
-              319.114814069623,
-              326.447071577015,
-              330.272895391643,
-              336.004878409297,
-              338.63609496079,
-              346.44301252137,
-              349.623500066988,
-              349.76632958661,
-              357.755405001306,
-              359.789368340842,
-              426.123854426042,
-              427.65191968242,
-              432.228468311772,
-              438.549083783543,
-              445.695544305838,
-              445.698016487599,
-              453.957947505638,
-              455.274193963226,
-              457.294771334458,
-              465.365393822483,
-              465.493532207242,
-              475.77472755803,
-              483.678916684272,
-              484.785385700541,
-              485.88630271027,
-              491.870381629307,
-              500.02976429877,
-              501.124862791005,
-              506.334946729052,
-              509.13832021343,
-              525.217496103159,
-              537.806072522712,
-              539.202378634217,
-              541.345189620861,
-              543.228585661109,
-              546.455151381655,
-              546.735904387545,
-              559.814896396004,
-              563.457988403085,
-              563.56463657676,
-              717.724504230916,
-              725.884126485352,
-              727.08335402851,
-              735.754285651947,
-              743.582194521975,
-              745.683678814475,
-              746.747959676358,
-              747.891607941182,
-              749.77527795676,
-              781.914269402679
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1,
+              1,
+              1,
+              0.75,
+              0.5,
+              0.25,
+              0,
+              0
             ],
             "y": [
-              579.4848,
-              575.960199999999,
-              577.9724,
-              577.0492,
-              573.9846,
-              577.524,
-              577.1588,
-              571.875,
-              578.1512,
-              577.4514,
-              604.7944,
-              599.869000000001,
-              601.0948,
-              601.106,
-              600.2304,
-              599.921,
-              595.678000000001,
-              600.695600000001,
-              600.498600000001,
-              611.1204,
-              601.866200000001,
-              613.677400000001,
-              612.839200000001,
-              610.480600000001,
-              611.0998,
-              611.460200000001,
-              612.122200000001,
-              612.902600000001,
-              612.833200000001,
-              610.8344,
-              618.748399999999,
-              617.3564,
-              613.240800000001,
-              617.6274,
-              616.3764,
-              616.9568,
-              617.4932,
-              616.8416,
-              618.1866,
-              617.247200000001,
-              543.8348,
-              544.65,
-              545.1694,
-              543.8162,
-              543.8404,
-              543.396,
-              541.6984,
-              545.3948,
-              547.6558,
-              545.7582
+              724.449469146626,
+              534.323200798457,
+              476.443954286785,
+              431.382399702965,
+              327.84733313726,
+              327.84733313726,
+              354.923340847837,
+              458.211066698591,
+              504.353846140647,
+              559.042459138965,
+              759.958782595404,
+              724.449469146626
             ],
             "text": [
-              "corridor_width: 319.1148<br />mean_elevation_of_turtles: 579.4848",
-              "corridor_width: 326.4471<br />mean_elevation_of_turtles: 575.9602",
-              "corridor_width: 330.2729<br />mean_elevation_of_turtles: 577.9724",
-              "corridor_width: 336.0049<br />mean_elevation_of_turtles: 577.0492",
-              "corridor_width: 338.6361<br />mean_elevation_of_turtles: 573.9846",
-              "corridor_width: 346.4430<br />mean_elevation_of_turtles: 577.5240",
-              "corridor_width: 349.6235<br />mean_elevation_of_turtles: 577.1588",
-              "corridor_width: 349.7663<br />mean_elevation_of_turtles: 571.8750",
-              "corridor_width: 357.7554<br />mean_elevation_of_turtles: 578.1512",
-              "corridor_width: 359.7894<br />mean_elevation_of_turtles: 577.4514",
-              "corridor_width: 426.1239<br />mean_elevation_of_turtles: 604.7944",
-              "corridor_width: 427.6519<br />mean_elevation_of_turtles: 599.8690",
-              "corridor_width: 432.2285<br />mean_elevation_of_turtles: 601.0948",
-              "corridor_width: 438.5491<br />mean_elevation_of_turtles: 601.1060",
-              "corridor_width: 445.6955<br />mean_elevation_of_turtles: 600.2304",
-              "corridor_width: 445.6980<br />mean_elevation_of_turtles: 599.9210",
-              "corridor_width: 453.9579<br />mean_elevation_of_turtles: 595.6780",
-              "corridor_width: 455.2742<br />mean_elevation_of_turtles: 600.6956",
-              "corridor_width: 457.2948<br />mean_elevation_of_turtles: 600.4986",
-              "corridor_width: 465.3654<br />mean_elevation_of_turtles: 611.1204",
-              "corridor_width: 465.4935<br />mean_elevation_of_turtles: 601.8662",
-              "corridor_width: 475.7747<br />mean_elevation_of_turtles: 613.6774",
-              "corridor_width: 483.6789<br />mean_elevation_of_turtles: 612.8392",
-              "corridor_width: 484.7854<br />mean_elevation_of_turtles: 610.4806",
-              "corridor_width: 485.8863<br />mean_elevation_of_turtles: 611.0998",
-              "corridor_width: 491.8704<br />mean_elevation_of_turtles: 611.4602",
-              "corridor_width: 500.0298<br />mean_elevation_of_turtles: 612.1222",
-              "corridor_width: 501.1249<br />mean_elevation_of_turtles: 612.9026",
-              "corridor_width: 506.3349<br />mean_elevation_of_turtles: 612.8332",
-              "corridor_width: 509.1383<br />mean_elevation_of_turtles: 610.8344",
-              "corridor_width: 525.2175<br />mean_elevation_of_turtles: 618.7484",
-              "corridor_width: 537.8061<br />mean_elevation_of_turtles: 617.3564",
-              "corridor_width: 539.2024<br />mean_elevation_of_turtles: 613.2408",
-              "corridor_width: 541.3452<br />mean_elevation_of_turtles: 617.6274",
-              "corridor_width: 543.2286<br />mean_elevation_of_turtles: 616.3764",
-              "corridor_width: 546.4552<br />mean_elevation_of_turtles: 616.9568",
-              "corridor_width: 546.7359<br />mean_elevation_of_turtles: 617.4932",
-              "corridor_width: 559.8149<br />mean_elevation_of_turtles: 616.8416",
-              "corridor_width: 563.4580<br />mean_elevation_of_turtles: 618.1866",
-              "corridor_width: 563.5646<br />mean_elevation_of_turtles: 617.2472",
-              "corridor_width: 717.7245<br />mean_elevation_of_turtles: 543.8348",
-              "corridor_width: 725.8841<br />mean_elevation_of_turtles: 544.6500",
-              "corridor_width: 727.0834<br />mean_elevation_of_turtles: 545.1694",
-              "corridor_width: 735.7543<br />mean_elevation_of_turtles: 543.8162",
-              "corridor_width: 743.5822<br />mean_elevation_of_turtles: 543.8404",
-              "corridor_width: 745.6837<br />mean_elevation_of_turtles: 543.3960",
-              "corridor_width: 746.7480<br />mean_elevation_of_turtles: 541.6984",
-              "corridor_width: 747.8916<br />mean_elevation_of_turtles: 545.3948",
-              "corridor_width: 749.7753<br />mean_elevation_of_turtles: 547.6558",
-              "corridor_width: 781.9143<br />mean_elevation_of_turtles: 545.7582"
+              "q: 0.00<br />corridor_width: 742.2041<br />corridor_width - corridor_width_sd: 724.4495<br />corridor_width + corridor_width_sd: 759.9588",
+              "q: 0.25<br />corridor_width: 546.6828<br />corridor_width - corridor_width_sd: 534.3232<br />corridor_width + corridor_width_sd: 559.0425",
+              "q: 0.50<br />corridor_width: 490.3989<br />corridor_width - corridor_width_sd: 476.4440<br />corridor_width + corridor_width_sd: 504.3538",
+              "q: 0.75<br />corridor_width: 444.7967<br />corridor_width - corridor_width_sd: 431.3824<br />corridor_width + corridor_width_sd: 458.2111",
+              "q: 1.00<br />corridor_width: 341.3853<br />corridor_width - corridor_width_sd: 327.8473<br />corridor_width + corridor_width_sd: 354.9233",
+              "q: 1.00<br />corridor_width: 341.3853<br />corridor_width - corridor_width_sd: 327.8473<br />corridor_width + corridor_width_sd: 354.9233",
+              "q: 1.00<br />corridor_width: 341.3853<br />corridor_width - corridor_width_sd: 327.8473<br />corridor_width + corridor_width_sd: 354.9233",
+              "q: 0.75<br />corridor_width: 444.7967<br />corridor_width - corridor_width_sd: 431.3824<br />corridor_width + corridor_width_sd: 458.2111",
+              "q: 0.50<br />corridor_width: 490.3989<br />corridor_width - corridor_width_sd: 476.4440<br />corridor_width + corridor_width_sd: 504.3538",
+              "q: 0.25<br />corridor_width: 546.6828<br />corridor_width - corridor_width_sd: 534.3232<br />corridor_width + corridor_width_sd: 559.0425",
+              "q: 0.00<br />corridor_width: 742.2041<br />corridor_width - corridor_width_sd: 724.4495<br />corridor_width + corridor_width_sd: 759.9588",
+              "q: 0.00<br />corridor_width: 742.2041<br />corridor_width - corridor_width_sd: 724.4495<br />corridor_width + corridor_width_sd: 759.9588"
             ],
             "type": "scatter",
-            "mode": "markers",
+            "mode": "lines",
+            "line": {
+              "width": 1.88976377952756,
+              "color": "transparent",
+              "dash": "solid"
+            },
+            "fill": "toself",
+            "fillcolor": "rgba(51,51,51,0.3)",
+            "hoveron": "points",
+            "showlegend": false,
+            "xaxis": "x",
+            "yaxis": "y",
+            "hoverinfo": "text",
+            "frame": null
+          },
+          {
+            "x": [
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
+            ],
+            "y": [
+              742.204125871015,
+              546.682829968711,
+              490.398900213716,
+              444.796733200778,
+              341.385336992549
+            ],
+            "text": [
+              "q: 0.00<br />corridor_width: 742.2041<br />corridor_width - corridor_width_sd: 724.4495<br />corridor_width + corridor_width_sd: 759.9588",
+              "q: 0.25<br />corridor_width: 546.6828<br />corridor_width - corridor_width_sd: 534.3232<br />corridor_width + corridor_width_sd: 559.0425",
+              "q: 0.50<br />corridor_width: 490.3989<br />corridor_width - corridor_width_sd: 476.4440<br />corridor_width + corridor_width_sd: 504.3538",
+              "q: 0.75<br />corridor_width: 444.7967<br />corridor_width - corridor_width_sd: 431.3824<br />corridor_width + corridor_width_sd: 458.2111",
+              "q: 1.00<br />corridor_width: 341.3853<br />corridor_width - corridor_width_sd: 327.8473<br />corridor_width + corridor_width_sd: 354.9233"
+            ],
+            "type": "scatter",
+            "mode": "markers+lines",
             "marker": {
               "autocolorscale": false,
               "color": "rgba(0,0,0,1)",
@@ -372,6 +296,11 @@
             "xaxis": "x",
             "yaxis": "y",
             "hoverinfo": "text",
+            "line": {
+              "width": 1.88976377952756,
+              "color": "rgba(0,0,0,1)",
+              "dash": "solid"
+            },
             "frame": null
           }
         ],
@@ -398,34 +327,31 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              295.97484130297,
-              805.054242169332
+              -0.05,
+              1.05
             ],
             "tickmode": "array",
             "ticktext": [
-              "300",
-              "400",
-              "500",
-              "600",
-              "700",
-              "800"
+              "0.00",
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
             ],
             "tickvals": [
-              300,
-              400,
-              500,
-              600,
-              700,
-              800
+              0,
+              0.25,
+              0.5,
+              0.75,
+              1
             ],
             "categoryorder": "array",
             "categoryarray": [
-              "300",
-              "400",
-              "500",
-              "600",
-              "700",
-              "800"
+              "0.00",
+              "0.25",
+              "0.50",
+              "0.75",
+              "1.00"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -448,7 +374,7 @@
             "zeroline": false,
             "anchor": "y",
             "title": {
-              "text": "Corridor width",
+              "text": "q",
               "font": {
                 "color": "rgba(0,0,0,1)",
                 "family": "",
@@ -466,31 +392,28 @@
             "type": "linear",
             "autorange": false,
             "range": [
-              537.8459,
-              622.600899999999
+              306.241760664353,
+              781.564355068311
             ],
             "tickmode": "array",
             "ticktext": [
-              "540",
-              "560",
-              "580",
+              "400",
+              "500",
               "600",
-              "620"
+              "700"
             ],
             "tickvals": [
-              540,
-              560,
-              580,
+              400,
+              500,
               600,
-              620
+              700
             ],
             "categoryorder": "array",
             "categoryarray": [
-              "540",
-              "560",
-              "580",
+              "400",
+              "500",
               "600",
-              "620"
+              "700"
             ],
             "nticks": null,
             "ticks": "outside",
@@ -513,7 +436,7 @@
             "zeroline": false,
             "anchor": "x",
             "title": {
-              "text": "Elevation",
+              "text": "Corridor width",
               "font": {
                 "color": "rgba(0,0,0,1)",
                 "family": "",
@@ -681,7 +604,7 @@
       "x": {
         "filter": "none",
         "vertical": false,
-        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>tick<\/th>\n      <th>corridor_width<\/th>\n      <th>mean_elevation_of_turtles<\/th>\n      <th>mean_elevation_of_turtles_sd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "container": "<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>run<\/th>\n      <th>real_terrain<\/th>\n      <th>q<\/th>\n      <th>tick<\/th>\n      <th>corridor_width<\/th>\n      <th>mean_elevation_of_turtles<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
         "options": {
           "lengthChange": false,
           "bFilter": false,
@@ -690,9 +613,10 @@
               "className": "dt-right",
               "targets": [
                 1,
-                2,
                 3,
-                4
+                4,
+                5,
+                6
               ]
             },
             {

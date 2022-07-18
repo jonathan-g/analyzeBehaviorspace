@@ -33,6 +33,7 @@
     "last_tick": false,
     "lines": false,
     "plotly_afterplot-A": "\"plot\"",
+    "plotly_relayout-A": "{\"width\":748,\"height\":400}",
     "points": true,
     "quit_button": 0,
     "ren_from": "mean_elevation_of_turtles",
@@ -377,9 +378,9 @@
         ],
         "layout": {
           "margin": {
-            "t": 40.5080946450809,
+            "t": 40.4748858447489,
             "r": 13.2835201328352,
-            "b": 78.9705271897053,
+            "b": 78.9373183893732,
             "l": 78.3727687837277
           },
           "plot_bgcolor": "rgba(255,255,255,1)",
@@ -496,7 +497,7 @@
             "ticks": "outside",
             "tickcolor": "rgba(51,51,51,1)",
             "ticklen": 6.6417600664176,
-            "tickwidth": 1.20759273934865,
+            "tickwidth": 1.20759273934866,
             "showticklabels": true,
             "tickfont": {
               "color": "rgba(77,77,77,1)",
@@ -509,7 +510,7 @@
             "linewidth": 0,
             "showgrid": true,
             "gridcolor": "rgba(235,235,235,1)",
-            "gridwidth": 1.20759273934865,
+            "gridwidth": 1.20759273934866,
             "zeroline": false,
             "anchor": "x",
             "title": {
@@ -528,7 +529,7 @@
               "fillcolor": "transparent",
               "line": {
                 "color": "rgba(51,51,51,1)",
-                "width": 1.20759273934865,
+                "width": 1.20759273934866,
                 "linetype": "solid"
               },
               "yref": "paper",
@@ -551,7 +552,7 @@
             }
           },
           "hovermode": "closest",
-          "width": 738,
+          "width": 737,
           "height": 400,
           "barmode": "relative"
         },
