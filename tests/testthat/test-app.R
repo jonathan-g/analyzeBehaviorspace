@@ -24,7 +24,7 @@ test_that("analyzeBehaviorspace works", {
     expect_true(dir.exists(appdir), info = "app dir exists.")
     resdir <- file.path(appdir, "tests", "testthat", "_snaps", plat_var)
     if(isTRUE(dir.exists(resdir))) {
-      test_app(appdir)
+      shinytest2::test_app(appdir)
     }
   }
 })
