@@ -1,4 +1,4 @@
-image: jgilligan/jg-shiny-verse:4.2.1
+image: jgilligan/jg-shinyverse:4.2.1
 
 test:
   script:
