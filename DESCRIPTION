@@ -1,6 +1,6 @@
 Package: analyzeBehaviorspace
-Version: 1.0.0
-Date: 2021-11-16
+Version: 1.0.0.9000
+Date: 2022-07-11
 Type: Package
 Title: Processes NetLogo BehaviorSpace Output
 Authors@R: c(person("Jonathan", "Gilligan", role = c("aut", "cre"),
@@ -27,7 +27,8 @@ Imports:
     plotly (>= 4.9)
 Suggests: 
     testthat (>= 2.3),
-    shinytest (>= 1.5),
+    shinytest2 (>= 0.1),
+    shinyvalidate (>= 0.1.2),
     knitr (>= 1.2),
     rmarkdown (>= 1.18)
 License: MIT + file LICENSE
@@ -37,6 +38,6 @@ BugReports: https://github.com/jonathan-g/analyzeBehaviorspace/issues
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Roxygen: list(markdown=TRUE)

@@ -1,13 +1,53 @@
-.Rproj.user
+#
+# RStudio project files
+#
+.Rproj.user/
+*.Rproj
+
+#
+# R files
+#
 .Rhistory
 .RData
 .Ruserdata
-*.bak
-inst/doc
-Corel Auto-Preserve
-doc
-Meta
-/inst/abs_app/tests/shinytest/test_abs-current
+
+#
+# R package generated files
+#
+/inst/doc
+/docs/
 /doc/
 /Meta/
-docs
+/inst/abs_app/tests/testthat/_snaps/**/*.new.*
+
+#
+# Backup files
+#
+*.bak
+
+#
+# LaTeX files
+#
+*.aux
+*.bbl
+*.glo
+*.gls
+*.glg
+*.idx
+*.ilg
+*.lof
+*.log
+*.lot
+*.toc
+*.out
+*.synctex.gz
+
+#
+# Office temp files
+#
+~$*
+*~
+*.tmp
+Corel Auto-Preserve
+
+/foo/

@@ -1,16 +1,15 @@
 test_that("directories exist", {
   skip_on_cran()
+  skip_if(Sys.getenv("CI") == "true" &&
+            Sys.getenv("GITHUB_JOB") == "R-CMD-check" &&
+            Sys.getenv("RUNNER_OS") == "Linux")
 
-  if (require(shinytest)) {
+  if (require(shinytest2)) {
     appdir <- system.file("abs_app", package="analyzeBehaviorspace")
     appdir <- normalizePath(appdir, winslash = "/")
-    # message("appdir = ", appdir)
-    os_type <- osName()
-    expect_true(os_type %in% c("win", "linux", "mac"))
-    # message("OS version = ", os_type)
+    plat_var <- shinytest2::platform_variant()
     expect_true(dir.exists(appdir), info = "app dir exists.")
-    resdir <- file.path(appdir, "tests", "shinytest",
-                        stringr::str_c("test_abs-expected-", os_type))
+    resdir <- file.path(appdir, "tests", "testthat", "_snaps", plat_var)
     expect_true(
       dir.exists(resdir),
       info = "expected test results directory exists."
@@ -23,20 +22,12 @@ test_that("analyzeBehaviorspace works", {
 
   appdir <- system.file("abs_app", package="analyzeBehaviorspace")
   appdir <- normalizePath(appdir, winslash = "/")
-  # message("appdir = ", appdir)
-  if (require(shinytest)) {
-    os_type <- osName()
-    # message("OS version = ", os_type)
-    expect_true(os_type %in% c("win", "linux", "mac"))
+  if (require(shinytest2)) {
+    plat_var <- shinytest2::platform_variant()
     expect_true(dir.exists(appdir), info = "app dir exists.")
-    resdir <- file.path(appdir, "tests", "shinytest",
-                        stringr::str_c("test_abs-expected-", os_type))
-    expect_true(
-      dir.exists(resdir), info = "expected test results directory exists.")
-    expect_pass(
-      testApp(appdir, suffix = os_type, quiet = TRUE,
-              compareImages = FALSE, interactive = FALSE),
-      info = "shinytest passes."
-    )
+    resdir <- file.path(appdir, "tests", "testthat", "_snaps", plat_var)
+    if(isTRUE(dir.exists(resdir))) {
+      shinytest2::test_app(appdir)
+    }
   }
 })

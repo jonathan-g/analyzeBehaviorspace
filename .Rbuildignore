@@ -7,13 +7,16 @@
 ^LICENSE\.R?md$
 ^README\.R?md$
 ^README-.*\.(png|jpg|jpeg|pdf)$
+^vignettes/.*/Corel Auto-Preserve$
 ^vignettes/.*/Corel Auto-Preserve/.*$
 ^inst/abs_app/texts/test_abs-current/.*$
 ^doc$
 ^Meta$
 ^\.github$
 .gitkeep$
-^/inst/abs_app/tests/shinytest/test_abs_current$
+^inst/abs_app/tests/.*/_*\.new\.png$
+^inst/abs_app/tests/testthat/test-st2-full.R$
+^inst/abs_app/tests/testthat/_snaps/[^/]+/st2-full/.*$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$

@@ -26,7 +26,9 @@ library(shinyalert)
 library(plotly)
 library(analyzeBehaviorspace)
 
-options(shiny.maxRequestSize = 300 * 1024^2)
+shiny_file_size <- getOption("analyzeBehaviorspace.maxFileSize", default = 300)
+
+options(shiny.maxRequestSize = shiny_file_size * 1024^2)
 
 # options(warn = 2)
 
