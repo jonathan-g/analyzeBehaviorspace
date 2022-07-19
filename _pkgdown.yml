@@ -45,4 +45,5 @@ reference:
   - get_yvars
   - is_bs_table
   - process_bs_data
+  - make_experiment
 

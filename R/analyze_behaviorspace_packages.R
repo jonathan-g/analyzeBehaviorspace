@@ -23,7 +23,8 @@
 #' ShinyStan interface and shinystan R package
 #'
 #' @docType package
-#' @name analyzeBehaviorspace-package
+#' @name analyzeBehaviorspace
+#' @keywords internal
 #'
 #' @description
 #'
