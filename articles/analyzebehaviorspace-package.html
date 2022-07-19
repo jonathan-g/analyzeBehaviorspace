@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">analyzeBehaviorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -64,7 +60,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jonathan-g/analyzeBehaviorspace/">
+  <a href="https://github.com/jonathan-g/analyzeBehaviorspace/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -79,37 +75,37 @@
 
       
 
-      </header><script src="analyzebehaviorspace-package_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Getting Started</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/jonathan-g/analyzeBehaviorspace/blob/master/vignettes/analyzebehaviorspace-package.Rmd"><code>vignettes/analyzebehaviorspace-package.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jonathan-g/analyzeBehaviorspace/blob/HEAD/vignettes/analyzebehaviorspace-package.Rmd" class="external-link"><code>vignettes/analyzebehaviorspace-package.Rmd</code></a></small>
       <div class="hidden name"><code>analyzebehaviorspace-package.Rmd</code></div>
 
     </div>
 
     
     
-<pre><code>#&gt; Loading required package: shiny
-#&gt; 
-#&gt; This is analyzeBehaviorspace version 1.0.0</code></pre>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<pre><code><span><span class="co">#&gt; Loading required package: shiny</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; This is analyzeBehaviorspace version 1.1.0</span></span></code></pre>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
 </div>
-<div id="getting-started" class="section level1">
-<h1 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting Started</h1>
-<div id="install-netlogo" class="section level2">
-<h2 class="hasAnchor">
-<a href="#install-netlogo" class="anchor"></a>Install NetLogo</h2>
-<p>First, download and install NetLogo from <a href="https://ccl.northwestern.edu/netlogo/download.shtml" class="uri">https://ccl.northwestern.edu/netlogo/download.shtml</a>. NetLogo is available for Windows, MacOS, and Linux. Follow the installation instructions for your operating system on the Download page.</p>
+<div class="section level2">
+<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
+<div class="section level3">
+<h3 id="install-netlogo">Install NetLogo<a class="anchor" aria-label="anchor" href="#install-netlogo"></a>
+</h3>
+<p>First, download and install NetLogo from <a href="https://ccl.northwestern.edu/netlogo/download.shtml" class="external-link uri">https://ccl.northwestern.edu/netlogo/download.shtml</a>. NetLogo is available for Windows, MacOS, and Linux. Follow the installation instructions for your operating system on the Download page.</p>
 </div>
-<div id="running-a-behaviorspace-experiment" class="section level2">
-<h2 class="hasAnchor">
-<a href="#running-a-behaviorspace-experiment" class="anchor"></a>Running a BehaviorSpace Experiment</h2>
+<div class="section level3">
+<h3 id="running-a-behaviorspace-experiment">Running a BehaviorSpace Experiment<a class="anchor" aria-label="anchor" href="#running-a-behaviorspace-experiment"></a>
+</h3>
 <p>The <code>analyzeBehaviorspace</code> package analyzes output from a NetLogo BehaviorSpace experiment, so to use this package we first need to create a BehaviorSpace experiment in NetLogo and run it.</p>
 <p>Start NetLogo, open the <code>File</code> menu, and select <code>Models Library</code>. This should open a window for selecting a model. You should see a list of model topics under the heading <code>Sample Models</code>. If you don’t, click on <code>Sample Models</code> to expand the topic list. Click on <code>Social Science</code> and then click on <code>Segregation</code> to open the housing segregation model.</p>
 <div class="figure">
@@ -137,13 +133,13 @@
 <p>Now you’re ready to run <code>analyzeBehaviorspace</code>.</p>
 </div>
 </div>
-<div id="running-analyzebehaviorspace" class="section level1">
-<h1 class="hasAnchor">
-<a href="#running-analyzebehaviorspace" class="anchor"></a>Running analyzeBehaviorspace</h1>
+<div class="section level2">
+<h2 id="running-analyzebehaviorspace">Running analyzeBehaviorspace<a class="anchor" aria-label="anchor" href="#running-analyzebehaviorspace"></a>
+</h2>
 <p>In an R session, load the analyzeBehaviorspace library and launch an <code>analyzeBehaviorspace</code> shiny application:</p>
-<pre><code><a href="https://github.com/jonathan-g/analyzeBehaviorspace">library(analyzeBehaviorspace)
-
-launch_abs()</a></code></pre>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jonathan-g/analyzeBehaviorspace" class="external-link">analyzeBehaviorspace</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/launch_abs.html">launch_abs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>When the application launches, it will open a web browser window where you can load your data file and analyze the data.</p>
 <p>Under <code>Choose csv file</code>, click the <code>Browse...</code> button and choose the file you saved from BehaviorSpace (by default, this is <code>Segregation experiment-table.csv</code>). After the file finishes loading, you should see something like this:</p>
 <div class="figure">
@@ -164,18 +160,18 @@ launch_abs()</a></code></pre>
 </div>
 <p>Now we can see that the value of <code>percent-similar-wanted</code> at which the time to converge begins to rise and the value at which the model reaches 200 ticks without converging both depend strongly on the density of occupied patches. The greater the density, the lower the value of <code>percent-similar-wanted</code> at which it becomes difficult to satisfy all the turtles.</p>
 <p>We also see that the range of values for <code>percent-similar-wanted</code> for which there is considerable variation from run to run is much smaller when we consider each value of <code>density</code> separately.</p>
-<div id="renaming-variables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#renaming-variables" class="anchor"></a>Renaming variables</h2>
+<div class="section level3">
+<h3 id="renaming-variables">Renaming variables<a class="anchor" aria-label="anchor" href="#renaming-variables"></a>
+</h3>
 <p>If you want your plot to look prettier, you can rename variables in your data and the plot will reflect the new names: Scroll down to <code>Rename variables</code>, select <code>percent-similar-wanted</code>, type <code>% similar wanted</code> in the <code>to</code> box, and click on the <code>Rename</code> button. Next, select <code>tick</code>, type <code>Time to converge</code> in <code>to</code> and click <code>Rename</code>. The graph will now look like this:</p>
 <div class="figure">
 <img src="images/abs_graph_renamed.png" alt=""><p class="caption">Graph with renamed variables</p>
 </div>
 </div>
 </div>
-<div id="saving-output" class="section level1">
-<h1 class="hasAnchor">
-<a href="#saving-output" class="anchor"></a>Saving Output</h1>
+<div class="section level2">
+<h2 id="saving-output">Saving Output<a class="anchor" aria-label="anchor" href="#saving-output"></a>
+</h2>
 <p>If you want to save the results of your analysis, either as images of the graphs or as tables of numbers that you can read into Excel, R, or another program for further analysis, you can scroll down to the <code>Save Plot</code> and <code>Save Table</code> buttons on the left. <code>Save Plot</code> will save the current plot as a <code>.png</code> image file. <code>Save Table</code> will save the table of data as a <code>.csv</code> file.</p>
 <p>If you check <code>Summary table</code>, then the table you save will correspond to the data plotted in the figure (with averages and standard deviations for the <em>y</em>-axis variable at each value of the <em>x</em>-axis and grouping variables). If <code>Summary table</code> is not checked, then you will save a <code>.csv</code> file with the values of all the variables. In either case, the table displayed in the lower right of the screen shows the data that will be saved.</p>
 </div>
@@ -192,11 +188,13 @@ launch_abs()</a></code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.jonathangilligan.org">Jonathan Gilligan</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.jonathangilligan.org" class="external-link">Jonathan Gilligan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -204,6 +202,8 @@ launch_abs()</a></code></pre>
 
   
 
+
+  
 
   </body>
 </html>

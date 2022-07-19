@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/404.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/articles/analyzebehaviorspace-package.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/authors.html</loc>
+  </url>
+  <url>
     <loc>https://jonathan-g.github.io/analyzeBehaviorspace/index.html</loc>
   </url>
   <url>
-    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/analyzeBehaviorspace-package.html</loc>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/analyzeBehaviorspace.html</loc>
   </url>
   <url>
     <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/classify_vars.html</loc>
@@ -34,6 +55,9 @@
     <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/get_yvars.html</loc>
   </url>
   <url>
+    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/is_bs_table.html</loc>
   </url>
   <url>
@@ -56,8 +80,5 @@
   </url>
   <url>
     <loc>https://jonathan-g.github.io/analyzeBehaviorspace/reference/tx_name.html</loc>
-  </url>
-  <url>
-    <loc>https://jonathan-g.github.io/analyzeBehaviorspace/articles/analyzebehaviorspace-package.html</loc>
   </url>
 </urlset>

@@ -22,6 +22,8 @@ and to export charts and summary tables.
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -34,23 +36,17 @@ and to export charts and summary tables.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">analyzeBehaviorspace</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -67,7 +63,7 @@ and to export charts and summary tables.
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/jonathan-g/analyzeBehaviorspace/">
+  <a href="https://github.com/jonathan-g/analyzeBehaviorspace/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -84,20 +80,19 @@ and to export charts and summary tables.
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="analyzebehaviorspace" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#analyzebehaviorspace" class="anchor"></a>analyzeBehaviorspace</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="analyzebehaviorspace">analyzeBehaviorspace<a class="anchor" aria-label="anchor" href="#analyzebehaviorspace"></a>
+</h1></div>
 <!-- badges: start -->
-
 <p>This is a shiny app to analyze table output from NetLogo BehaviorSpace experiments.</p>
 <p>NetLogo outputs <code>.csv</code> files from BehaviorSpace runs that are very annoying to analyze in Excel because of the limited functionality of Excel pivot tables. This application reads in a <code>.csv</code> file from a BehaviorSpace run (use the <em>table</em> option for output, not <em>spreadsheet</em>) and allows the user to summarize the output by up to two variables, and generate plots and summary tables, both of which can be exported.</p>
 <p>To use the app, you need R version 3.3 or later.</p>
 <p>To install <code>analyzeBehaviorspace</code>, start R and type the following lines:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(devtools)) <span class="kw">install.packages</span>(devtools)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'jonathan-g/analyzeBehaviorspace'</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(devtools)) <span class="fu">install.packages</span>(devtools)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">'jonathan-g/analyzeBehaviorspace'</span>)</span></code></pre></div>
 <p>after you have done that once, you can run <code>analyzeBehaviorspace</code> by starting R and typing the following:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(analyzeBehaviorspace)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw">launch_abs</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(analyzeBehaviorspace)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">launch_abs</span>()</span></code></pre></div>
 <p>The app should start running, and open the <code>analyzeBehaviorspace</code> app in your web browser. When the app is running, load a <code>.csv</code> file containing the table output from a BehaviorSpace run. Then you will see a table of values for all the control and output variables at each tick of each BehaviorSpace run. You can generate summary plots and tables by choosing variables for the <em>x</em> and <em>y</em> axes and a grouping variable (if you choose a grouping variable, each different value of that variable will be represented by a different color in the plots).</p>
 <p>The graph will plot the mean value of the <em>y</em> variable for each value of the <em>x</em> variable (grouped by each value of the grouping variable if one is chosen). You can select whether to show points, lines, or both, and whether to just show the mean values of the <em>y</em> variable or to show error bars as well (error bars show plus and minus one standard deviation of the <em>y</em> variable).</p>
 <p>If you check the <code>Summary table</code> box, the table will show the mean value and standard deviation of the <em>y</em> variable for each combination of the <em>x</em> and grouping variables.</p>
@@ -107,47 +102,51 @@ and to export charts and summary tables.
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/jonathan-g/analyzeBehaviorspace/">https://​github.com/​jonathan-g/​analyzeBehaviorspace/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/jonathan-g/analyzeBehaviorspace/issues">https://​github.com/​jonathan-g/​analyzeBehaviorspace/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://www.jonathangilligan.org">Jonathan Gilligan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1375-6686" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/jonathan-g/analyzeBehaviorspace/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/jonathan-g/analyzeBehaviorspace/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
-<li><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/jonathan-g/analyzeBehaviorspace/actions"><img src="https://github.com/jonathan-g/analyzeBehaviorspace/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing analyzeBehaviorspace</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>
+<a href="https://www.jonathangilligan.org" class="external-link">Jonathan Gilligan</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0003-1375-6686" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.jonathangilligan.org">Jonathan Gilligan</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.jonathangilligan.org" class="external-link">Jonathan Gilligan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -155,6 +154,8 @@ and to export charts and summary tables.
 
   
 
+
+  
 
   </body>
 </html>
