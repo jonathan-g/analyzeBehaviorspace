@@ -19,6 +19,9 @@ test_that("directories exist", {
 
 test_that("analyzeBehaviorspace works", {
   skip_on_cran()
+  skip_if(Sys.getenv("CI") == "true" &&
+            Sys.getenv("GITHUB_JOB") == "R-CMD-check" &&
+            Sys.getenv("RUNNER_OS") == "Linux")
 
   appdir <- system.file("abs_app", package="analyzeBehaviorspace")
   appdir <- normalizePath(appdir, winslash = "/")
