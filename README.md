@@ -5,7 +5,7 @@
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+experimental](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check with
 {renv}](https://github.com/jonathan-g/analyzeBehaviorspace/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jonathan-g/analyzeBehaviorspace/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
