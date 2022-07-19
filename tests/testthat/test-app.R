@@ -1,5 +1,8 @@
 test_that("directories exist", {
   skip_on_cran()
+  skip_if(Sys.getenv("CI") == "true" &&
+            Sys.getenv("GITHUB_JOB") == "R-CMD-check" &&
+            Sys.getenv("RUNNER_OS") == "Linux")
 
   if (require(shinytest2)) {
     appdir <- system.file("abs_app", package="analyzeBehaviorspace")
