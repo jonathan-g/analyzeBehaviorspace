@@ -1,3 +1,12 @@
+# analyzeBehaviorspace 1.1.0
+
+* Add option to increase maximum upload file size.
+* Migrate tests from shinytest to shinytest2.
+
+# analyzebehaviorspace 1.0.0
+
+* Add functions to package so they can be used outside the shiny app.
+
 # analyzebehaviorspace 0.3.0
 
 * Move a lot of functionality from Shiny server() function to regular R 
