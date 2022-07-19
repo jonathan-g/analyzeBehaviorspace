@@ -18,7 +18,7 @@
 /docs/
 /doc/
 /Meta/
-/inst/abs_app/tests/shinytest/test_abs-current
+/inst/abs_app/tests/testthat/_snaps/**/*.new.*
 
 #
 # Backup files

@@ -38,6 +38,6 @@ BugReports: https://github.com/jonathan-g/analyzeBehaviorspace/issues
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Roxygen: list(markdown=TRUE)

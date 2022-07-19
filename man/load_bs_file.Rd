@@ -46,13 +46,13 @@ file.
 }
 \section{Functions}{
 \itemize{
-\item \code{load_bs_table}: Load a BehaviorSpace experiment in table
+\item \code{load_bs_table()}: Load a BehaviorSpace experiment in table
 format.
 
-\item \code{load_bs_spreadsheet}: Load a BehaviorSpace experiment in spreadsheet
+\item \code{load_bs_spreadsheet()}: Load a BehaviorSpace experiment in spreadsheet
 format.
+
 }}
-
 \examples{
 \dontrun{
   load_bs_file(
