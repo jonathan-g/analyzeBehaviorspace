@@ -1,11 +1,3 @@
-library(dplyr)
-library(purrr)
-library(tidyr)
-library(readr)
-library(stringr)
-library(janitor)
-
-
 #' Load output from a NetLogo BehaviorSpace experiment
 #'
 #' Loads the output from a NetLogo BehaviorSpace zexperiment.

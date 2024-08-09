@@ -138,9 +138,10 @@ get_plot_mapping <- function(experiment, plot_data, x_var, y_var, group_var,
   p_map_list <- rlang::parse_exprs(p_map_args)
   pm_x <- p_map_list$x
   pm_y <- p_map_list$y
-  p_map_list <- purrr::list_modify(p_map_list, x= NULL, y = NULL)
-  p_map <- aes(x = !!pm_x, y = !!pm_y, !!!p_map_list)
-  plot_labs <- labs(x = tx_col(x_var, mapping), y = tx_col(y_var, mapping))
+  p_map_list <- purrr::list_modify(p_map_list, x= zap(), y = zap())
+  p_map <- ggplot2::aes(x = !!pm_x, y = !!pm_y, !!!p_map_list)
+  plot_labs <- ggplot2::labs(x = tx_col(x_var, mapping),
+                            y = tx_col(y_var, mapping))
   rval <- list(mapping = p_map, labels = plot_labs, legend = plot_legend)
   # message("plot_mapping: rval = ", rval)
   rval
@@ -191,7 +192,7 @@ make_plot <- function(experiment, points, lines, x_var, y_var, group_var,
   pm_labs <- p_map$labels
   pm_legend <- p_map$legend
   message("Plotting...")
-  p <- ggplot(df, pm_mapping)
+  p <- ggplot2::ggplot(df, pm_mapping)
   message("sd name = ", sd_name)
   if (sd_name %in% names(df)) {
     message("error bars = ", error_bars)
@@ -203,23 +204,27 @@ make_plot <- function(experiment, points, lines, x_var, y_var, group_var,
   }
   message("points = ", points)
   if (points) {
-    message("points")
-    p <- p + geom_point()
+    p <- p + ggplot2::geom_point()
   }
   message("lines = ", lines)
   if (lines) {
-    p <- p + geom_line()
+    p <- p + ggplot2::geom_line()
   }
   if (! is.null(pm_legend)) {
     message("legend")
     # message("adding legend ", pm_legend)
-    p <- p + scale_colour_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
-    p <- p + scale_fill_discrete(guide = guide_legend(pm_legend, reverse = TRUE))
+    p <- p + ggplot2::scale_colour_discrete(
+      guide = ggplot2::guide_legend(pm_legend, reverse = TRUE)
+      )
+    p <- p + ggplot2::scale_fill_discrete(
+      guide = ggplot2::guide_legend(pm_legend, reverse = TRUE)
+      )
   }
   message("Labs = ",
-          str_c(names(pm_labs), pm_labs, sep = ": ", collapse = ", "))
+          str_c(names(pm_labs), as.character(pm_labs),
+                sep = ": ", collapse = ", "))
   p <- p + pm_labs
-  p <- p + theme_bw(base_size = 20)
+  p <- p + ggplot2::theme_bw(base_size = 20)
   message("Done making plot")
   p
 }

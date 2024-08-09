@@ -2,8 +2,8 @@
 % Please edit documentation in R/analyze_behaviorspace_packages.R
 \docType{package}
 \name{analyzeBehaviorspace}
-\alias{analyzeBehaviorspace}
 \alias{analyzeBehaviorspace-package}
+\alias{analyzeBehaviorspace}
 \title{analyzeBehaviorspace: Processes NetLogo BehaviorSpace Output}
 \description{
 Reads in table-style output from NetLogo BehaviorSpace experiments, allows the user to do some basic organizing and interactive plotting, and to export charts and summary tables.

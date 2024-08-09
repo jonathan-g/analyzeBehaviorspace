@@ -62,7 +62,7 @@ launch <- function(rstudio = FALSE, maxFileSize = NULL, ...) {
             analyze_behaviorspace.maxFileSize = mfs)
   }
 
-  shiny::runApp(system.file("abs_app", package = "analyzeBehaviorspace"),
-                launch.browser = launch.browser, ...)
+  app <- app_fn(...)
+  runApp(app)
   invisible(NULL)
 }
