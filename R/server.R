@@ -15,6 +15,13 @@
 # http://shiny.rstudio.com
 #
 
+make_named_list <- function(x, as_list = TRUE) {
+  y <- rlang::set_names(x$col, x$name)
+  if (as_list) {
+    y <- as.list(y)
+  }
+  invisible(y)
+}
 
 #' Create a [`shinyServer`][shiny::shinyServer] object.
 #'
@@ -149,14 +156,14 @@ server_fn <- function() {
       xv <- input$x_var
       rv <- input$ren_from
 
-      vars <- expt_vars() %>% {rlang::set_names(.$col, .$name)} %>% as.list()
+      vars <- expt_vars() %>% make_named_list()
       if (! xv %in% vars) xv <- ''
       shiny::updateSelectInput(session, "x_var", choices = vars, selected = xv)
       message("Set x_var choices to (",
               paste(names(vars), vars, sep = " = ", collapse=", "),
               "), selection = ", xv)
 
-      rvars <- expt_vars()%>% {rlang::set_names(.$col, .$name)} %>% as.list()
+      rvars <- expt_vars()%>% make_named_list()
       if (! rv %in% rvars) rv <- ''
       shiny::updateSelectInput(session, "ren_from", choices = rvars, selected = rv)
       message("Set rename_from choices to (",
@@ -167,7 +174,7 @@ server_fn <- function() {
     shiny::observeEvent(expt_yvars(), {
       message("expt_yvars changed")
       yv <- input$y_var
-      yvars <- expt_yvars() %>% {rlang::set_names(.$col, .$name)} %>% as.list()
+      yvars <- expt_yvars() %>% make_named_list()
       if (! yv %in% yvars) yv <- ''
       shiny::updateSelectInput(session, "y_var", choices = yvars, selected = yv)
       message("Set y_var choices to (",
@@ -178,8 +185,7 @@ server_fn <- function() {
     shiny::observeEvent(expt_group_vars(), {
       message("expt_group_vars changed")
       gv <- input$y_var
-      gvars <- expt_group_vars() %>% {rlang::set_names(.$col, .$name)} %>%
-        as.list()
+      gvars <- expt_group_vars() %>% make_named_list()
       if (! gv %in% gvars) gv <- ''
       shiny::updateSelectInput(session, "group_var", choices = gvars, selected = gv)
       message("Set group_var choices to (",
@@ -201,7 +207,7 @@ server_fn <- function() {
 
       mapping$name[mapping$col == ren_from] <- ren_to
 
-      rvars <- expt_vars()%>% {rlang::set_names(.$col, .$name)} %>% as.list()
+      rvars <- expt_vars()%>% make_named_list()
       if (! ren_from  %in% rvars) ren_from <- ''
       shiny::updateSelectInput(session, "ren_from", choices = rvars,
                         selected = ren_from)
@@ -242,7 +248,7 @@ server_fn <- function() {
       message("making table")
       tab_data <- expt_data$data
       if (is.null(tab_data)) return(NULL)
-      new_names <- expt_data$mapping %>% {rlang::set_names(.$col, .$name)}
+      new_names <- expt_data$mapping %>% make_named_list(FALSE)
       if (input$summary_tab) {
         tab_data <- plot_data()
       } else {
@@ -326,7 +332,7 @@ server_fn <- function() {
       },
       content = function(file1) {
         message("Writing to file ", file1)
-        write.csv(maketable(), file1)
+        readr::write_csv(maketable(), file1)
       }
     )
 
