@@ -8,6 +8,9 @@
 #' @return A [`shinyApp`][shiny::shinyApp] object.
 #' @examples
 #' # ADD_EXAMPLES_HERE
+#'
+#' @export
+#'
 app_fn <- function(...) {
   shiny_file_size <- getOption("analyzeBehaviorspace.maxFileSize", default = 300)
   options(shiny.maxRequestSize = shiny_file_size * 1024^2)

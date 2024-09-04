@@ -36,6 +36,8 @@ make_named_list <- function(x, as_list = TRUE) {
 #' shinyApp(ui, server)
 #' }
 #'
+#' @export
+#'
 server_fn <- function() {
   shiny::shinyServer(function(input, output, session) {
 

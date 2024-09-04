@@ -17,4 +17,5 @@ Create a \code{shinyApp} object for \code{analyzeBehaviorspace}
 }
 \examples{
 # ADD_EXAMPLES_HERE
+
 }

@@ -29,6 +29,8 @@
 #' shinyApp(ui, server)
 #' }
 #'
+#' @export
+#'
 ui_fn <- function() {
   shiny::shinyUI(
     shiny::fluidPage(
