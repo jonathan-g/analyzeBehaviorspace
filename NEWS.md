@@ -1,3 +1,8 @@
+# analyzeBehaviorspace 1.3.0
+
+* Fix `load_bs_spreadsheet()` to work with spreadsheet output from
+  NetLogo 6.4.0.
+
 # analyzeBehaviorspace 1.1.0
 
 * Add option to increase maximum upload file size.

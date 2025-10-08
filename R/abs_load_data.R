@@ -82,7 +82,7 @@ load_bs_file <- function(filename = NULL, text = NULL, quiet = TRUE) {
 #' @export
 #'
 is_bs_table <- function(text, skip_lines) {
-  df <- read_csv(text, skip = skip_lines + 1, col_names = FALSE)
+  df <- readr::read_csv(text, skip = skip_lines + 1, col_names = FALSE)
   message("X1 = ", class(df$X1))
   return(is.numeric(df$X1))
 }
@@ -161,16 +161,16 @@ load_bs_table <- function(filename = NULL, text = NULL, quiet = TRUE) {
     message("File is a BS table")
   }
 
-  d <- read_csv(text, skip = skip_lines, n_max = 100)
+  d <- readr::read_csv(text, skip = skip_lines, n_max = 100)
 
   nm <- names(d) %>% make_clean_names(case = "snake") %>%
-    str_replace_all(c('^_+' = '', '_+$' = '')) %>%
-    str_replace_all(c('^run_number$' = 'run', '^step$' = 'tick'))
+    stringr::str_replace_all(c('^_+' = '', '_+$' = '')) %>%
+    stringr::str_replace_all(c('^run_number$' = 'run', '^step$' = 'tick'))
   nc <- length(nm)
   spec <- rep_len('?', length(nm))
-  spec <- str_c(spec, collapse = '')
+  spec <- stringr::str_c(spec, collapse = '')
 
-  d <- read_csv(text, skip = skip_lines + 1,
+  d <- readr::read_csv(text, skip = skip_lines + 1,
                 col_names = nm, col_types = spec,
                 guess_max = round(length(text_lines) / 2))
   if (any(duplicated(names(d)))) {
@@ -278,10 +278,16 @@ load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
     return(ret_fail)
   }
 
+  reporter_line <- which(stringr::str_detect(text_lines, '^"?\\[reporter\\]"?'))
+  run_data_line <- which(stringr::str_detect(text_lines, '^"?\\[all run data\\]"?'))
+  final_value_line <- which(stringr::str_detect(text_lines, '^"?\\[final value\\]"?'))
+
   skip_lines = skip_lines[1] - 1
 
   if (!quiet) {
     message("Skip lines = ", skip_lines)
+    message("Run data line = ", run_data_line)
+    message("Final value line = ", final_value_line)
   }
 
   if (is_bs_table(text, skip_lines)) {
@@ -293,25 +299,64 @@ load_bs_spreadsheet <- function(filename = NULL, text = NULL, quiet = TRUE) {
     message("File is a BS spreadsheet")
   }
 
-  d <- read_csv(text, skip = skip_lines, col_names = FALSE,
-                col_types = cols(.default = col_character())) %>%
+  data_line <- ifelse(is.null(run_data_line) || is.na(run_data_line) ||
+                        length(run_data_line) == 0,
+                      final_value_line, run_data_line)
+  data_skip <- data_line - 1
+
+  hdr_len <- data_skip - skip_lines - 1
+  if (! (is.null(reporter_line) || is.na(reporter_line) ||
+         length(reporter_line) == 0)) {
+    delta <- reporter_line - skip_lines - 1
+    if (delta < hdr_len) {
+      hdr_len <- delta
+    }
+  }
+
+
+  d <- readr::read_csv(text, skip = skip_lines, n_max = hdr_len,
+                col_names = FALSE,
+                col_types = cols(.default = col_character()))
+
+  run_number <- dplyr::slice_head(d, n = 1) %>%
+    dplyr::select(-"X1") %>%
+    tidyr::pivot_longer(everything(), names_to = "foo", values_to = "run_number")
+
+  d <- d %>%
     tidyr::pivot_longer(-"X1", names_to = "foo", values_to = "value") %>%
     tidyr::pivot_wider(names_from = "X1", values_from = "value") %>%
     janitor::clean_names() %>%
-    dplyr::rename(run = "run_number", tick = "steps") %>%
-    dplyr::relocate("tick", .after = last_col())
-  dep_vars <- unique(d$initial_final_values) %>% na.omit() %>%
-    janitor::make_clean_names("snake")
-  d <- d %>%
-    tidyr::pivot_wider(names_from = "initial_final_values",
-                       values_from = "na") %>%
-    janitor::clean_names() %>%
+    dplyr::rename(run = "run_number") %>%
     dplyr::select(-"foo") %>%
-    dplyr::group_by(.data$run, .data$tick) %>%
-    dplyr::summarize(across(everything(), ~unique(na.omit(.x))),
-                     .groups = "drop") %>%
-    dplyr::mutate(across(everything(), parse_guess)) %>%
-    dplyr::relocate("tick", any_of(dep_vars), .after = last_col())
+    dplyr::summarize(across(dplyr::everything(), ~unique(na.omit(.x))),
+                     .by = "run")
+
+
+  dv_names <- readr::read_csv(text, skip = data_skip, n_max = 1,
+                              col_names = FALSE,
+                              col_types = cols(.default = col_character())) %>%
+    dplyr::select(-"X1") %>%
+    tidyr::pivot_longer(dplyr::everything(), names_to = "foo", values_to = "var")
+
+  dv <- readr::read_csv(text, skip = data_skip + 1, col_names = FALSE,
+                        col_types = cols(.default = col_character())) %>%
+    dplyr::select(-"X1") %>%
+    tidyr::pivot_longer(dplyr::everything(), names_to = "foo",
+                        values_to = "value") %>%
+    dplyr::left_join(dv_names, by = "foo") %>%
+    dplyr::left_join(run_number, by = "foo") %>%
+    dplyr::select(-"foo") %>%
+    tidyr::pivot_wider(names_from = "var", values_from = "value",
+                       values_fn = list) %>%
+    tidyr::unnest(-"run_number") %>%
+    janitor::clean_names("snake") %>%
+    dplyr::rename(run = "run_number", tick = "step")
+
+  dep_vars <- names(dv) %>% purrr::discard(~.x %in% c("run", "tick"))
+
+  d <- d %>% full_join(dv, by = "run") %>%
+    dplyr::mutate(across(everything(), readr::parse_guess)) %>%
+    dplyr::relocate("tick", dplyr::any_of(dep_vars), .after = last_col())
 
   ret <- process_bs_data(d, quiet)
   invisible(ret)
