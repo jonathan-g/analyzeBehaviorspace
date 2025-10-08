@@ -46,4 +46,7 @@ reference:
   - is_bs_table
   - process_bs_data
   - make_experiment
+  - ui_fn
+  - server_fn
+  - app_fn
 
