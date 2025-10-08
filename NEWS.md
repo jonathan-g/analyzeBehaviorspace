@@ -3,6 +3,16 @@
 * Fix `load_bs_spreadsheet()` to work with spreadsheet output from
   NetLogo 6.4.0.
 
+# analyzeBehaviorspace 1.2.0
+
+* Update Shiny app structure to include `ui_fn()`, `server_fn()`, and
+  `app_fn()` as parts of the package, rather than in free-standing 
+  R scripts.
+* Updated GitHub workflow to clean up name of R CMD check workflow.
+  * Don't run shinytest2 tests with GitHub actions on Linux.
+* Update lifecycle stage to stable.
+* Clean up Roxygen metadata for package documentation
+
 # analyzeBehaviorspace 1.1.0
 
 * Add option to increase maximum upload file size.
